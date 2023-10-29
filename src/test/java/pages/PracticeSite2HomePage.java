@@ -12,16 +12,6 @@ import org.openqa.selenium.support.PageFactory;
 public class PracticeSite2HomePage extends BasePage {
 
     /**
-     * PAGE_TITLE contains page title text.
-     */
-    private static final String PAGE_TITLE = "Home";
-
-    /**
-     * LOGGED_IN_MESSAGE contains text of message after successful registration.
-     */
-    private static final String LOGGED_IN_MESSAGE = "You're logged in!!";
-
-    /**
      * Find a page title web element using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//h1[text() = 'Home']")
@@ -32,13 +22,7 @@ public class PracticeSite2HomePage extends BasePage {
      */
     @FindBy(xpath = "//p[contains(text(),'logged in!!')]")
     private WebElement loggedInMessage;
-
-    /**
-     * Find a Logout button tab web element using @FindBy annotation and xpath.
-     */
-    @FindBy(xpath = "//a[text() = 'Logout']")
-    private WebElement logout;
-
+    
     /**
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
@@ -49,13 +33,13 @@ public class PracticeSite2HomePage extends BasePage {
 
     @Step("Get page title web element")
     public WebElement getPageTitle() {
-        Waiters.waitVisibilityOfElement(driver, pageTitle);
+        waitForElement(pageTitle);
         return pageTitle;
     }
 
     @Step("Get 'logged in message' web element")
     public WebElement getLoggedInMessage() {
-        Waiters.waitVisibilityOfElement(driver, loggedInMessage);
+        waitForElement(loggedInMessage);
         return loggedInMessage;
     }
 
@@ -63,14 +47,16 @@ public class PracticeSite2HomePage extends BasePage {
      * Get page title text from PAGE_TITLE.
      */
     public String getPageTitleText() {
-        return PAGE_TITLE;
+        String pageTitleText = "Home";
+        return pageTitleText;
     }
 
     /**
      * Get text of message after successful registration from LOGGED_IN_MESSAGE.
      */
     public String getLoggedInMessageText() {
-        return LOGGED_IN_MESSAGE;
+        String loggedInMessageText = "You're logged in!!";
+        return loggedInMessageText;
     }
 
 }

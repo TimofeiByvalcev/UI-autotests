@@ -1,12 +1,12 @@
 package tests;
 
-import helpers.FakeData;
-import io.qameta.allure.Description;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
 
 import static helpers.FakeData.*;
+import static pages.BasePage.*;
 
 /**
  * Tests class provides UI tests for way2automation site.
@@ -20,8 +20,28 @@ public class Tests extends BaseTest {
     public void testPresenceOfElements() {
         HomePage homePage = new HomePage().openHomePage();
 
-        Assert.assertTrue(homePage.checkPresenceOfElements(), "One of elements is not displayed on the page");
-        Assert.assertTrue(homePage.checkSliderWork(), "Slider is not work");
+        WebElement header = homePage.getHomePageHeader();
+        WebElement horizontalMenu = homePage.getHorizontalMenu();
+        WebElement certificationsBlock = homePage.getCertificationsBlock();
+        WebElement coursesBlock = homePage.getCoursesBlock();
+        WebElement nextCourseCarousel = homePage.getNextCourseCarousel();
+        WebElement activeCourseCarousel = homePage.getActiveCourseCarousel();
+        WebElement courseCarouselNextArrow = homePage.getCourseCarouselNextArrow();
+        WebElement footer = homePage.getHomePageFooter();
+
+        Assert.assertTrue(checkPresenceOfElement(header));
+        Assert.assertTrue(checkPresenceOfElement(horizontalMenu));
+        Assert.assertTrue(checkPresenceOfElement(certificationsBlock));
+        Assert.assertTrue(checkPresenceOfElement(coursesBlock));
+        Assert.assertTrue(checkPresenceOfElement(footer));
+
+        moveToElement(coursesBlock);
+
+        int nextCourseIndex = homePage.getCourseAttributeValue(nextCourseCarousel);
+        clickElement(courseCarouselNextArrow);
+
+        Assert.assertEquals(homePage.getCourseAttributeValue(activeCourseCarousel), nextCourseIndex, "Slider isn't work");
+
     }
 
     /**
@@ -30,8 +50,12 @@ public class Tests extends BaseTest {
     @Test
     public void testMenuInHeaderAfterScroll() {
         HomePage homePage = new HomePage().openHomePage();
+        WebElement header = homePage.getHomePageHeader();
+        WebElement footer = homePage.getHomePageFooter();
 
-        Assert.assertTrue(homePage.checkHeaderMenuAfterScroll(), "Header isn't displayed after scroll");
+        moveToElement(footer);
+
+        Assert.assertTrue(checkPresenceOfElement(header), "Header isn't displayed after scroll");
     }
 
     /**
@@ -41,7 +65,7 @@ public class Tests extends BaseTest {
     public void testOpenPracticeSite() {
         PracticeSitePage practiceSitePage = new HomePage()
                 .openHomePage()
-                .openPagesFromMenu()
+                .openPageFromMenu()
                 .clickTestingWebsiteLink();
 
         Assert.assertEquals(practiceSitePage.getPageDescription().getText(), practiceSitePage.getPageDescriptionText());
@@ -58,14 +82,15 @@ public class Tests extends BaseTest {
                 .openRegistrationPage()
                 .enterUsername(practiceSite2Page.getUserName())
                 .enterPassword(practiceSite2Page.getPassword())
-                .enterUserNameDescription("Test").clickLoginButton();
+                .enterUserNameDescription("Test")
+                .clickLoginButton();
 
         Assert.assertEquals(practiceSite2HomePage.getPageTitle().getText(), practiceSite2HomePage.getPageTitleText());
         Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getText(), practiceSite2HomePage.getLoggedInMessageText());
     }
 
     /**
-     * Check About Us page opening from footer.
+     * Check that About Us page opening from footer.
      */
     @Test
     public void openAboutUsPage() {
@@ -82,13 +107,13 @@ public class Tests extends BaseTest {
     public void fillDummyRegistrationForm() {
         PracticeSitePage practiceSitePage = new PracticeSitePage()
                 .openPracticeSitePage()
-                .enterDummyName(FULL_NAME)
-                .enterDummyPhone(PHONE_NUMBER)
-                .enterDummyEmail(EMAIL)
-                .selectDummyCountry(COUNTRY)
-                .enterDummyCity(CITY)
-                .enterDummyUsername(USERNAME)
-                .enterDummyPassword(PASSWORD)
+                .enterDummyName(generateFullName())
+                .enterDummyPhone(generatePhoneNumber())
+                .enterDummyEmail(generateEmail())
+                .selectDummyCountry(generateCountry())
+                .enterDummyCity(generateCity())
+                .enterDummyUsername(generateUserName())
+                .enterDummyPassword(generatePassword())
                 .clickSubmitButton();
         Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), practiceSitePage.getAlertMessageText());
     }

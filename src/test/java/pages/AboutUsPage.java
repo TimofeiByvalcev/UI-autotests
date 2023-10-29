@@ -11,11 +11,6 @@ import org.openqa.selenium.support.PageFactory;
 public class AboutUsPage extends BasePage {
 
     /**
-     * An ABOUT_US constant provides a title of About Us page.
-     */
-    private static final String ABOUT_US = "About Us";
-
-    /**
      * Find an About Us title web element using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//h1")
@@ -30,7 +25,7 @@ public class AboutUsPage extends BasePage {
     }
 
     /**
-     * Getter for aboutUsTitle web element.
+     * Get aboutUsTitle web element.
      */
     public WebElement getAboutUsTitle() {
         Waiters.waitVisibilityOfElement(driver, aboutUsTitle);
@@ -38,9 +33,11 @@ public class AboutUsPage extends BasePage {
     }
 
     /**
-     * Getter for ABOUT_US constant.
+     * Get text title for About Us page.
      */
     public String getAboutUsTitleText() {
-        return ABOUT_US;
+
+        String aboutUs = "About Us";
+        return aboutUs;
     }
 }

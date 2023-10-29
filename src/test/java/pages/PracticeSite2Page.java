@@ -13,16 +13,6 @@ import org.openqa.selenium.support.PageFactory;
 public class PracticeSite2Page extends BasePage {
 
     /**
-     * A USER_NAME constant contains a username.
-     */
-    private static final String USER_NAME = "angular";
-
-    /**
-     * A PASSWORD constant contains a password.
-     */
-    private static final String PASSWORD = "password";
-
-    /**
      * Find a Username field web element using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//input[@id = 'username']")
@@ -62,44 +52,40 @@ public class PracticeSite2Page extends BasePage {
 
     @Step("Enter Username")
     public PracticeSite2Page enterUsername(String username) {
-        Waiters.waitVisibilityOfElement(driver, usernameField);
-        usernameField.sendKeys(username);
+        sendKeysToElement(usernameField, username);
         return new PracticeSite2Page();
     }
 
     @Step("Enter Password")
     public PracticeSite2Page enterPassword(String password) {
-        Waiters.waitVisibilityOfElement(driver, passwordField);
-        passwordField.sendKeys(password);
+        sendKeysToElement(passwordField, password);
         return new PracticeSite2Page();
     }
 
     @Step("Enter Username Description")
     public PracticeSite2Page enterUserNameDescription(String usernameDescription) {
-        Waiters.waitVisibilityOfElement(driver, usernameDescriptionField);
-        usernameDescriptionField.sendKeys(usernameDescription);
+        sendKeysToElement(usernameDescriptionField, usernameDescription);
         return new PracticeSite2Page();
     }
 
     @Step("Click Login button")
     public PracticeSite2HomePage clickLoginButton() {
-        Waiters.waitVisibilityOfElement(driver, loginButton);
-        loginButton.click();
+        clickElement(loginButton);
         return new PracticeSite2HomePage();
     }
 
     /**
-     * Get username from USER_NAME.
+     * Get username which described on the site.
      */
     public String getUserName() {
-        return USER_NAME;
+        return "angular";
     }
 
     /**
-     * Get password from PASSWORD.
+     * Get password which described on the site.
      */
     public String getPassword() {
-        return PASSWORD;
+        return "password";
     }
 
 }

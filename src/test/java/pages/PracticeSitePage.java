@@ -14,16 +14,6 @@ import org.openqa.selenium.support.ui.Select;
 public class PracticeSitePage extends BasePage {
 
     /**
-     * ALERT_MESSAGE constant contains a text of alert message.
-     */
-    private static final String ALERT_MESSAGE = "This is just a dummy form, you just clicked SUBMIT BUTTON";
-
-    /**
-     * PAGE_DESCRIPTION constant contains a text of page description.
-     */
-    private static final String PAGE_DESCRIPTION = "Try Automating all feasible elements you find on web";
-
-    /**
      * Find a testing website link using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//div[contains(@class, 'fancybox-overlay')]/descendant::a[text() = 'ENTER TO THE TESTING WEBSITE']")
@@ -105,81 +95,73 @@ public class PracticeSitePage extends BasePage {
 
     @Step("Click testing website link")
     public PracticeSitePage clickTestingWebsiteLink() {
-        Waiters.waitVisibilityOfElement(driver, testingWebsiteLink);
-        testingWebsiteLink.click();
+        clickElement(testingWebsiteLink);
         return new PracticeSitePage();
     }
 
     @Step("Get page description")
     public WebElement getPageDescription() {
-        Waiters.waitVisibilityOfElement(driver, pageDescription);
+        waitForElement(pageDescription);
         return pageDescription;
     }
     @Step("Get page description text from constant")
     public String getPageDescriptionText() {
-        return PAGE_DESCRIPTION;
+        String pageDescription = "Try Automating all feasible elements you find on web";
+        return pageDescription;
     }
     @Step("Enter name in dummy form")
     public PracticeSitePage enterDummyName(String name) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormName);
-        dummyFormName.sendKeys(name);
+        sendKeysToElement(dummyFormName, name);
         return new PracticeSitePage();
     }
 
     @Step("Enter phone in dummy form")
     public PracticeSitePage enterDummyPhone(String phone) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormPhone);
-        dummyFormPhone.sendKeys(phone);
+        sendKeysToElement(dummyFormPhone, phone);
         return new PracticeSitePage();
     }
     @Step("Enter email in dummy form")
     public PracticeSitePage enterDummyEmail(String email) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormEmail);
-        dummyFormEmail.sendKeys(email);
+        sendKeysToElement(dummyFormEmail, email);
         return new PracticeSitePage();
     }
 
     @Step("Select country in dummy form")
     public PracticeSitePage selectDummyCountry(String country) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormCountry);
-        Select countrySelector = new Select(dummyFormCountry);
-        countrySelector.selectByValue(country);
+        selectByValue(dummyFormCountry, country);
         return new PracticeSitePage();
     }
     @Step("Enter city in dummy form")
     public PracticeSitePage enterDummyCity(String city) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormCity);
-        dummyFormCity.sendKeys(city);
+        sendKeysToElement(dummyFormCity, city);
         return new PracticeSitePage();
     }
 
     @Step("Enter username in dummy form")
     public PracticeSitePage enterDummyUsername(String username) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormUserName);
-        dummyFormUserName.sendKeys(username);
+        sendKeysToElement(dummyFormUserName, username);
         return new PracticeSitePage();
     }
     @Step("Enter password in dummy form")
     public PracticeSitePage enterDummyPassword(String password) {
-        Waiters.waitVisibilityOfElement(driver, dummyFormPassword);
-        dummyFormPassword.sendKeys(password);
+        sendKeysToElement(dummyFormPassword, password);
         return new PracticeSitePage();
     }
 
     @Step("Click Submit button dummy form")
     public PracticeSitePage clickSubmitButton() {
-        Waiters.waitVisibilityOfElement(driver, submitButton);
-        submitButton.click();
+        clickElement(submitButton);
         return new PracticeSitePage();
     }
 
     @Step("Get alert message in dummy form")
     public WebElement getAlertMessage() {
-        Waiters.waitVisibilityOfElement(driver, alertMessage);
+        waitForElement(alertMessage);
         return alertMessage;
     }
     @Step("Get alert message text from constant for dummy form")
     public String getAlertMessageText() {
-        return ALERT_MESSAGE;
+        String alertMessage = "This is just a dummy form, you just clicked SUBMIT BUTTON";
+        return alertMessage;
     }
 }
