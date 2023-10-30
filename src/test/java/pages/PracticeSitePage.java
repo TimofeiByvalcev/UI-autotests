@@ -14,6 +14,11 @@ import org.openqa.selenium.support.ui.Select;
 public class PracticeSitePage extends BasePage {
 
     /**
+     * ALERT_MESSAGE constant contains alert message on dummy registration form page.
+     */
+    public static final String ALERT_MESSAGE = "This is just a dummy form, you just clicked SUBMIT BUTTON";
+
+    /**
      * Find a testing website link using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//div[contains(@class, 'fancybox-overlay')]/descendant::a[text() = 'ENTER TO THE TESTING WEBSITE']")
@@ -104,11 +109,13 @@ public class PracticeSitePage extends BasePage {
         waitForElement(pageDescription);
         return pageDescription;
     }
+
     @Step("Get page description text from constant")
     public String getPageDescriptionText() {
         String pageDescription = "Try Automating all feasible elements you find on web";
         return pageDescription;
     }
+
     @Step("Enter name in dummy form")
     public PracticeSitePage enterDummyName(String name) {
         sendKeysToElement(dummyFormName, name);
@@ -120,6 +127,7 @@ public class PracticeSitePage extends BasePage {
         sendKeysToElement(dummyFormPhone, phone);
         return new PracticeSitePage();
     }
+
     @Step("Enter email in dummy form")
     public PracticeSitePage enterDummyEmail(String email) {
         sendKeysToElement(dummyFormEmail, email);
@@ -131,6 +139,7 @@ public class PracticeSitePage extends BasePage {
         selectByValue(dummyFormCountry, country);
         return new PracticeSitePage();
     }
+
     @Step("Enter city in dummy form")
     public PracticeSitePage enterDummyCity(String city) {
         sendKeysToElement(dummyFormCity, city);
@@ -142,6 +151,7 @@ public class PracticeSitePage extends BasePage {
         sendKeysToElement(dummyFormUserName, username);
         return new PracticeSitePage();
     }
+
     @Step("Enter password in dummy form")
     public PracticeSitePage enterDummyPassword(String password) {
         sendKeysToElement(dummyFormPassword, password);
@@ -157,11 +167,6 @@ public class PracticeSitePage extends BasePage {
     @Step("Get alert message in dummy form")
     public WebElement getAlertMessage() {
         waitForElement(alertMessage);
-        return alertMessage;
-    }
-    @Step("Get alert message text from constant for dummy form")
-    public String getAlertMessageText() {
-        String alertMessage = "This is just a dummy form, you just clicked SUBMIT BUTTON";
         return alertMessage;
     }
 }

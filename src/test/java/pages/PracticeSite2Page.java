@@ -13,6 +13,16 @@ import org.openqa.selenium.support.PageFactory;
 public class PracticeSite2Page extends BasePage {
 
     /**
+     * USER_NAME constant contains username for login.
+     */
+    public static final String USER_NAME = "angular";
+
+    /**
+     * PASSWORD constant contains password for login.
+     */
+    public static final String PASSWORD = "password";
+
+    /**
      * Find a Username field web element using @FindBy annotation and xpath.
      */
     @FindBy(xpath = "//input[@id = 'username']")
@@ -73,19 +83,4 @@ public class PracticeSite2Page extends BasePage {
         clickElement(loginButton);
         return new PracticeSite2HomePage();
     }
-
-    /**
-     * Get username which described on the site.
-     */
-    public String getUserName() {
-        return "angular";
-    }
-
-    /**
-     * Get password which described on the site.
-     */
-    public String getPassword() {
-        return "password";
-    }
-
 }

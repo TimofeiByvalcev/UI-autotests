@@ -1,6 +1,5 @@
 package tests;
 
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
@@ -20,27 +19,18 @@ public class Tests extends BaseTest {
     public void testPresenceOfElements() {
         HomePage homePage = new HomePage().openHomePage();
 
-        WebElement header = homePage.getHomePageHeader();
-        WebElement horizontalMenu = homePage.getHorizontalMenu();
-        WebElement certificationsBlock = homePage.getCertificationsBlock();
-        WebElement coursesBlock = homePage.getCoursesBlock();
-        WebElement nextCourseCarousel = homePage.getNextCourseCarousel();
-        WebElement activeCourseCarousel = homePage.getActiveCourseCarousel();
-        WebElement courseCarouselNextArrow = homePage.getCourseCarouselNextArrow();
-        WebElement footer = homePage.getHomePageFooter();
+        Assert.assertTrue(checkPresenceOfElement(homePage.getHomePageHeader()));
+        Assert.assertTrue(checkPresenceOfElement(homePage.getHorizontalMenu()));
+        Assert.assertTrue(checkPresenceOfElement(homePage.getCertificationsBlock()));
+        Assert.assertTrue(checkPresenceOfElement(homePage.getCoursesBlock()));
+        Assert.assertTrue(checkPresenceOfElement(homePage.getHomePageFooter()));
 
-        Assert.assertTrue(checkPresenceOfElement(header));
-        Assert.assertTrue(checkPresenceOfElement(horizontalMenu));
-        Assert.assertTrue(checkPresenceOfElement(certificationsBlock));
-        Assert.assertTrue(checkPresenceOfElement(coursesBlock));
-        Assert.assertTrue(checkPresenceOfElement(footer));
+        moveToElement(homePage.getCoursesBlock());
 
-        moveToElement(coursesBlock);
+        int nextCourseIndex = homePage.getCourseAttributeValue(homePage.getNextCourseCarousel());
+        clickElement(homePage.getCourseCarouselNextArrow());
 
-        int nextCourseIndex = homePage.getCourseAttributeValue(nextCourseCarousel);
-        clickElement(courseCarouselNextArrow);
-
-        Assert.assertEquals(homePage.getCourseAttributeValue(activeCourseCarousel), nextCourseIndex, "Slider isn't work");
+        Assert.assertEquals(homePage.getCourseAttributeValue(homePage.getActiveCourseCarousel()), nextCourseIndex, "Slider isn't work");
 
     }
 
@@ -50,12 +40,10 @@ public class Tests extends BaseTest {
     @Test
     public void testMenuInHeaderAfterScroll() {
         HomePage homePage = new HomePage().openHomePage();
-        WebElement header = homePage.getHomePageHeader();
-        WebElement footer = homePage.getHomePageFooter();
 
-        moveToElement(footer);
+        moveToElement(homePage.getHomePageFooter());
 
-        Assert.assertTrue(checkPresenceOfElement(header), "Header isn't displayed after scroll");
+        Assert.assertTrue(checkPresenceOfElement(homePage.getHomePageHeader()), "Header isn't displayed after scroll");
     }
 
     /**
@@ -80,13 +68,13 @@ public class Tests extends BaseTest {
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
-                .enterUsername(practiceSite2Page.getUserName())
-                .enterPassword(practiceSite2Page.getPassword())
+                .enterUsername(PracticeSite2Page.USER_NAME)
+                .enterPassword(PracticeSite2Page.PASSWORD)
                 .enterUserNameDescription("Test")
                 .clickLoginButton();
 
-        Assert.assertEquals(practiceSite2HomePage.getPageTitle().getText(), practiceSite2HomePage.getPageTitleText());
-        Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getText(), practiceSite2HomePage.getLoggedInMessageText());
+        Assert.assertEquals(practiceSite2HomePage.getPageTitle().getText(), PracticeSite2HomePage.PAGE_TITLE);
+        Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getText(), PracticeSite2HomePage.LOGGED_IN_MESSAGE);
     }
 
     /**
@@ -97,7 +85,7 @@ public class Tests extends BaseTest {
         AboutUsPage aboutUsPage = new HomePage()
                 .openHomePage()
                 .openAboutUsPage();
-        Assert.assertEquals(aboutUsPage.getAboutUsTitle().getText(), aboutUsPage.getAboutUsTitleText());
+        Assert.assertEquals(aboutUsPage.getAboutUsTitle().getText(), AboutUsPage.PAGE_TITLE);
     }
 
     /**
@@ -115,6 +103,6 @@ public class Tests extends BaseTest {
                 .enterDummyUsername(generateUserName())
                 .enterDummyPassword(generatePassword())
                 .clickSubmitButton();
-        Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), practiceSitePage.getAlertMessageText());
+        Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), PracticeSitePage.ALERT_MESSAGE);
     }
 }

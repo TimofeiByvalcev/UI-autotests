@@ -63,20 +63,14 @@ public class HomePage extends BasePage {
     /**
      * Find a practice site 1 link in horizontal menu using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//div[contains(@class, 'main-navigation')]/descendant::li[@id = 'menu-item-27618']")
+    @FindBy(xpath = "//span[text() = 'Practice Site 1']")
     private WebElement practiceSite1;
 
     /**
      * Find a next arrow in courses carousel on the home page using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//div[contains(@class,'swiper-button-next-c50f9f0')]")
+    @FindBy(css = ".swiper-container-wrap .swiper-button-next")
     private WebElement courseCarouselNextArrow;
-
-    /**
-     * Find a title of courses block on the home page using @FindBy annotation and xpath.
-     */
-    @FindBy(xpath = "//div[contains(@class, 'elementor-image-box-content')]/child::h2[text() = 'Most Popular Software Testing Courses']")
-    private WebElement coursesTitle;
 
     /**
      * Find an About Us link in footer on the home page using @FindBy annotation and xpath.
