@@ -20,6 +20,7 @@ public class PracticeSite2HomePage extends BasePage {
      * LOGGED_IN_MESSAGE constant contains successful login message.
      */
     public static final String LOGGED_IN_MESSAGE = "You're logged in!!";
+
     /**
      * Find a page title web element using @FindBy annotation and xpath.
      */
