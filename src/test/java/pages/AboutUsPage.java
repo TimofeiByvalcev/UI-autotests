@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class AboutUsPage extends BasePage {
 
-    public static final String PAGE_TITLE = "About Us";
+    public final String PAGE_TITLE = "About Us";
 
     /**
      * Find an About Us title web element using @FindBy annotation and xpath.

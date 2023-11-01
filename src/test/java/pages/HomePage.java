@@ -39,14 +39,17 @@ public class HomePage extends BasePage {
     /**
      * Find an active element in courses carousel on the home page using @FindBy annotation and xpath.
      */
-    @FindBy(css = ".swiper-container-wrap .swiper-slide-active")
+    @FindBy(css = ".swiper-container-wrap .swiper-slide-active .pp-info-box-title")
     private WebElement activeCourseCarousel;
 
     /**
      * Find a next element in courses carousel on the home page using @FindBy annotation and xpath.
      */
-    @FindBy(css = ".swiper-container-wrap .swiper-slide-next")
+    @FindBy(css = ".swiper-container-wrap .swiper-slide-next .pp-info-box-title")
     private WebElement nextCourseCarousel;
+
+    @FindBy(css = ".swiper-container-wrap .swiper-slide-prev .pp-info-box-title")
+    private WebElement prevCourseCarousel;
 
     /**
      * Find a footer on the home page using @FindBy annotation and xpath.
@@ -72,6 +75,9 @@ public class HomePage extends BasePage {
     @FindBy(css = ".swiper-container-wrap .swiper-button-next")
     private WebElement courseCarouselNextArrow;
 
+    @FindBy(xpath = "//*[@id='post-17']/div/div/section[4]/div[2]/div/div/div/div/div/div[2]")
+    private WebElement courseCarouselPrevArrow;
+
     /**
      * Find an About Us link in footer on the home page using @FindBy annotation and xpath.
      */
@@ -95,10 +101,10 @@ public class HomePage extends BasePage {
     /**
      * This method get an index value of course in courses carousel.
      */
-    @Step("Get index of course in carousel")
-    public int getCourseAttributeValue(WebElement element) {
+    @Step("Get name of course in carousel")
+    public String getCourseName(WebElement element) {
         waitForElement(element);
-        return Integer.parseInt(element.getAttribute("data-swiper-slide-index"));
+        return element.getText();
     }
 
     /**
@@ -173,5 +179,13 @@ public class HomePage extends BasePage {
      */
     public WebElement getCourseCarouselNextArrow() {
         return courseCarouselNextArrow;
+    }
+
+    public WebElement getCourseCarouselPrevArrow() {
+        return courseCarouselPrevArrow;
+    }
+
+    public WebElement getPrevCourseCarousel() {
+        return prevCourseCarousel;
     }
 }

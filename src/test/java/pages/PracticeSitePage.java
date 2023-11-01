@@ -1,12 +1,10 @@
 package pages;
 
 import helpers.ReadProperties;
-import helpers.Waiters;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 
 /**
  * PracticeSitePage provides methods for work with the Practice Site page.
@@ -16,7 +14,9 @@ public class PracticeSitePage extends BasePage {
     /**
      * ALERT_MESSAGE constant contains alert message on dummy registration form page.
      */
-    public static final String ALERT_MESSAGE = "This is just a dummy form, you just clicked SUBMIT BUTTON";
+    public final String ALERT_MESSAGE = "This is just a dummy form, you just clicked SUBMIT BUTTON";
+
+    public final String PAGE_DESCRIPTION = "Try Automating all feasible elements you find on web";
 
     /**
      * Find a testing website link using @FindBy annotation and xpath.
@@ -107,12 +107,6 @@ public class PracticeSitePage extends BasePage {
     @Step("Get page description")
     public WebElement getPageDescription() {
         waitForElement(pageDescription);
-        return pageDescription;
-    }
-
-    @Step("Get page description text from constant")
-    public String getPageDescriptionText() {
-        String pageDescription = "Try Automating all feasible elements you find on web";
         return pageDescription;
     }
 

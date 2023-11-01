@@ -1,7 +1,6 @@
 package pages;
 
 import helpers.ReadProperties;
-import helpers.Waiters;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,12 +14,12 @@ public class PracticeSite2Page extends BasePage {
     /**
      * USER_NAME constant contains username for login.
      */
-    public static final String USER_NAME = "angular";
+    public final String USER_NAME = "angular";
 
     /**
      * PASSWORD constant contains password for login.
      */
-    public static final String PASSWORD = "password";
+    public final String PASSWORD = "password";
 
     /**
      * Find a Username field web element using @FindBy annotation and xpath.

@@ -1,6 +1,5 @@
 package pages;
 
-import helpers.Waiters;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,12 +13,12 @@ public class PracticeSite2HomePage extends BasePage {
     /**
      * PAGE_TITLE constant contains practice site 2 home page title.
      */
-    public static final String PAGE_TITLE = "Home";
+    public final String PAGE_TITLE = "Home";
 
     /**
      * LOGGED_IN_MESSAGE constant contains successful login message.
      */
-    public static final String LOGGED_IN_MESSAGE = "You're logged in!!";
+    public final String LOGGED_IN_MESSAGE = "You're logged in!!";
 
     /**
      * Find a page title web element using @FindBy annotation and xpath.
