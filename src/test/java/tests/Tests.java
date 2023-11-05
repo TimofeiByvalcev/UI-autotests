@@ -117,8 +117,8 @@ public class Tests extends BaseTest {
                 .enterUserNameDescription("Test")
                 .clickLoginButton();
 
-        Assert.assertEquals(practiceSite2HomePage.getPageTitle().getText(), practiceSite2HomePage.PAGE_TITLE);
-        Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
+        Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
+        Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Tests extends BaseTest {
         AboutUsPage aboutUsPage = new HomePage()
                 .openHomePage()
                 .openAboutUsPage();
-        Assert.assertEquals(aboutUsPage.getAboutUsTitle().getText(), aboutUsPage.PAGE_TITLE);
+        Assert.assertEquals(aboutUsPage.getAboutUsTitle().getElement().getText(), aboutUsPage.PAGE_TITLE);
     }
 
     /**
@@ -157,4 +157,5 @@ public class Tests extends BaseTest {
                 .clickSubmitButton();
         Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), practiceSitePage.ALERT_MESSAGE);
     }
+
 }

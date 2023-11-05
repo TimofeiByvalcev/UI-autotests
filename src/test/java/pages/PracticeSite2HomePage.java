@@ -1,5 +1,6 @@
 package pages;
 
+import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,13 +24,13 @@ public class PracticeSite2HomePage extends BasePage {
     /**
      * Find a page title web element using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//h1[text() = 'Home']")
+    @FindBy(xpath = "//h1")
     private WebElement pageTitle;
 
     /**
      * Find a message web element after successful registration using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//p[contains(text(),'logged in!!')]")
+    @FindBy(css = "p:nth-child(2)")
     private WebElement loggedInMessage;
 
     /**
@@ -41,14 +42,14 @@ public class PracticeSite2HomePage extends BasePage {
     }
 
     @Step("Get page title web element")
-    public WebElement getPageTitle() {
-        waitForElement(pageTitle);
-        return pageTitle;
+    public WebElementWrapper getPageTitle() {
+        waitForElement(wrapElement(pageTitle, "Page title"));
+        return wrapElement(pageTitle, "Page title");
     }
 
     @Step("Get 'logged in message' web element")
-    public WebElement getLoggedInMessage() {
-        waitForElement(loggedInMessage);
-        return loggedInMessage;
+    public WebElementWrapper getLoggedInMessage() {
+        waitForElement(wrapElement(loggedInMessage, "Successful log in message"));
+        return wrapElement(loggedInMessage, "Logged in message");
     }
 }

@@ -18,16 +18,18 @@ public class PracticeSitePage extends BasePage {
 
     public final String PAGE_DESCRIPTION = "Try Automating all feasible elements you find on web";
 
+    public final String TEST_SITE_LINK = "ENTER TO THE TESTING WEBSITE";
+
     /**
      * Find a testing website link using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//div[contains(@class, 'fancybox-overlay')]/descendant::a[text() = 'ENTER TO THE TESTING WEBSITE']")
+    @FindBy(linkText = TEST_SITE_LINK)
     private WebElement testingWebsiteLink;
 
     /**
      * Find a page description using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//h3[text() = 'Try Automating all feasible elements you find on web']")
+    @FindBy(xpath = "//h3")
     private WebElement pageDescription;
 
     /**
@@ -100,67 +102,67 @@ public class PracticeSitePage extends BasePage {
 
     @Step("Click testing website link")
     public PracticeSitePage clickTestingWebsiteLink() {
-        clickElement(testingWebsiteLink);
+        clickElement(wrapElement(testingWebsiteLink, "Testing website link"));
         return new PracticeSitePage();
     }
 
     @Step("Get page description")
     public WebElement getPageDescription() {
-        waitForElement(pageDescription);
+        waitForElement(wrapElement(pageDescription, "Description of page"));
         return pageDescription;
     }
 
     @Step("Enter name in dummy form")
     public PracticeSitePage enterDummyName(String name) {
-        sendKeysToElement(dummyFormName, name);
+        sendKeysToElement(wrapElement(dummyFormName, "Name field"), name);
         return new PracticeSitePage();
     }
 
     @Step("Enter phone in dummy form")
     public PracticeSitePage enterDummyPhone(String phone) {
-        sendKeysToElement(dummyFormPhone, phone);
+        sendKeysToElement(wrapElement(dummyFormPhone, "Phone field"), phone);
         return new PracticeSitePage();
     }
 
     @Step("Enter email in dummy form")
     public PracticeSitePage enterDummyEmail(String email) {
-        sendKeysToElement(dummyFormEmail, email);
+        sendKeysToElement(wrapElement(dummyFormEmail, "Email form"), email);
         return new PracticeSitePage();
     }
 
     @Step("Select country in dummy form")
     public PracticeSitePage selectDummyCountry(String country) {
-        selectByValue(dummyFormCountry, country);
+        selectByValue(wrapElement(dummyFormCountry, "Country in dropdown"), country);
         return new PracticeSitePage();
     }
 
     @Step("Enter city in dummy form")
     public PracticeSitePage enterDummyCity(String city) {
-        sendKeysToElement(dummyFormCity, city);
+        sendKeysToElement(wrapElement(dummyFormCity, "City field"), city);
         return new PracticeSitePage();
     }
 
     @Step("Enter username in dummy form")
     public PracticeSitePage enterDummyUsername(String username) {
-        sendKeysToElement(dummyFormUserName, username);
+        sendKeysToElement(wrapElement(dummyFormUserName, "Username field"), username);
         return new PracticeSitePage();
     }
 
     @Step("Enter password in dummy form")
     public PracticeSitePage enterDummyPassword(String password) {
-        sendKeysToElement(dummyFormPassword, password);
+        sendKeysToElement(wrapElement(dummyFormPassword, "Password field"), password);
         return new PracticeSitePage();
     }
 
     @Step("Click Submit button dummy form")
     public PracticeSitePage clickSubmitButton() {
-        clickElement(submitButton);
+        clickElement(wrapElement(submitButton, "Submit form"));
         return new PracticeSitePage();
     }
 
     @Step("Get alert message in dummy form")
     public WebElement getAlertMessage() {
-        waitForElement(alertMessage);
+        waitForElement(wrapElement(alertMessage, "Alert message on the page"));
         return alertMessage;
     }
 }

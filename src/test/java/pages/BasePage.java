@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.Waiters;
+import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,62 +30,66 @@ abstract public class BasePage {
     /**
      * This method provides functionality of moving to element on the page.
      */
-    @Step("Move to element")
-    public static void moveToElement(WebElement element) {
+    @Step("Move to {element}")
+    public static void moveToElement(WebElementWrapper element) {
         waitForElement(element);
         Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
+        actions.moveToElement(element.getElement()).perform();
     }
 
     /**
      * This method for element's waiting.
      */
-    @Step("Wait for element")
-    public static void waitForElement(WebElement element) {
-        Waiters.waitVisibilityOfElement(driver, element);
+    @Step("Wait for {element}")
+    public static void waitForElement(WebElementWrapper element) {
+        Waiters.waitVisibilityOfElement(driver, element.getElement());
     }
 
     /**
      * This method check that element is displayed.
      */
-    @Step("Check presence of element")
-    public static boolean checkPresenceOfElement(WebElement element) {
+    @Step("Check presence of {element}")
+    public static boolean checkPresenceOfElement(WebElementWrapper element) {
         waitForElement(element);
-        return element.isDisplayed();
+        return element.getElement().isDisplayed();
     }
 
     /**
      * This method provides the ability to click on an element.
      */
-    @Step("Click element")
-    public static void clickElement(WebElement element) {
+    @Step("Click {element}")
+    public static void clickElement(WebElementWrapper element) {
         waitForElement(element);
-        element.click();
+        element.getElement().click();
     }
 
     /**
      * This method provides functionality of sendKeys() method, but with waiting.
      */
-    @Step("Send keys to element")
-    public static void sendKeysToElement(WebElement element, CharSequence... expression) {
+    @Step("Send keys to {element}")
+    public static void sendKeysToElement(WebElementWrapper element, CharSequence... expression) {
         waitForElement(element);
-        element.sendKeys(expression);
+        element.getElement().sendKeys(expression);
     }
 
     /**
      * This method provides functionality of select item from selector.
      */
     @Step("Select element by value from dropdown list")
-    public static void selectByValue(WebElement element, String value) {
+    public static void selectByValue(WebElementWrapper element, String value) {
         waitForElement(element);
-        Select countrySelector = new Select(element);
+        Select countrySelector = new Select(element.getElement());
         countrySelector.selectByValue(value);
     }
 
-    @Step("Wait element has class")
-    public static void waitElementHasClass(WebElement element, String elementClass) throws InterruptedException {
-        if (!element.getAttribute("class").contains(elementClass)) {
+    @Step("Wait {element} has class")
+    public static void waitElementHasClass(WebElementWrapper element, String elementClass) throws InterruptedException {
+        if (!element.getElement().getAttribute("class").contains(elementClass)) {
             TimeUnit.SECONDS.sleep(1);
         }
+    }
+
+    protected static WebElementWrapper wrapElement(WebElement element, String description) {
+        return new WebElementWrapper(element, description);
     }
 }

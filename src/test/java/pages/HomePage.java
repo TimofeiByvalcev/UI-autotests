@@ -2,6 +2,7 @@ package pages;
 
 
 import helpers.ReadProperties;
+import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,12 @@ import org.openqa.selenium.support.PageFactory;
  * The HomePage class provides methods for work with the Home page.
  */
 public class HomePage extends BasePage {
+
+    public final String RESOURCES = "Resources";
+
+    public final String PRACTICE_SITE1 = "Practice Site 1";
+
+    public final String ABOUT_US = "About Us";
 
     /**
      * Find a header on the home page using @FindBy annotation and xpath.
@@ -60,13 +67,13 @@ public class HomePage extends BasePage {
     /**
      * Find a resources option in horizontal menu using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//div[@id = 'ast-desktop-header']/descendant::span[text() = 'Resources']")
+    @FindBy(linkText = RESOURCES)
     private WebElement resourcesOptionMenu;
 
     /**
      * Find a practice site 1 link in horizontal menu using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//span[text() = 'Practice Site 1']")
+    @FindBy(linkText = PRACTICE_SITE1)
     private WebElement practiceSite1;
 
     /**
@@ -75,13 +82,13 @@ public class HomePage extends BasePage {
     @FindBy(css = ".swiper-container-wrap .swiper-button-next")
     private WebElement courseCarouselNextArrow;
 
-    @FindBy(xpath = "//*[@id='post-17']/div/div/section[4]/div[2]/div/div/div/div/div/div[2]")
+    @FindBy(css = ".swiper-container-wrap .swiper-button-prev")
     private WebElement courseCarouselPrevArrow;
 
     /**
      * Find an About Us link in footer on the home page using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//div[@data-elementor-type = 'footer']/descendant::span[text() = 'About Us']")
+    @FindBy(xpath = "//div[@data-elementor-type = 'footer']/descendant::span[text() = '" + ABOUT_US + "']")
     private WebElement aboutUs;
 
     /**
@@ -102,17 +109,17 @@ public class HomePage extends BasePage {
      * This method get an index value of course in courses carousel.
      */
     @Step("Get name of course in carousel")
-    public String getCourseName(WebElement element) {
+    public String getCourseName(WebElementWrapper element) {
         waitForElement(element);
-        return element.getText();
+        return element.getElement().getText();
     }
 
     /**
      * This method open Practice Site 1 page from horizontal menu.
      */
     public PracticeSitePage openPageFromMenu() {
-        clickElement(resourcesOptionMenu);
-        clickElement(practiceSite1);
+        clickElement(wrapElement(resourcesOptionMenu, "Resource option in horizontal menu"));
+        clickElement(wrapElement(practiceSite1, "Practice Site 1"));
         return new PracticeSitePage();
     }
 
@@ -120,72 +127,69 @@ public class HomePage extends BasePage {
      * This method open About Us page from footer.
      */
     public AboutUsPage openAboutUsPage() {
-        moveToElement(homePageFooter);
-        clickElement(aboutUs);
+        moveToElement(wrapElement(homePageFooter, "Home page footer"));
+        clickElement(wrapElement(aboutUs, "About us page"));
         return new AboutUsPage();
     }
 
     /**
      * This method returns homePageHeader web element.
      */
-    public WebElement getHomePageHeader() {
-        return homePageHeader;
+    public WebElementWrapper getHomePageHeader() {
+        return wrapElement(homePageHeader, "Header");
     }
 
     /**
      * This method returns horizontalMenu web element.
      */
-    public WebElement getHorizontalMenu() {
-        return horizontalMenu;
+    public WebElementWrapper getHorizontalMenu() {
+        return wrapElement(horizontalMenu, "Horizontal menu");
     }
 
     /**
      * This method returns certificationsBlock web element.
      */
-    public WebElement getCertificationsBlock() {
-        return certificationsBlock;
+    public WebElementWrapper getCertificationsBlock() {
+        return wrapElement(certificationsBlock, "Certifications block");
     }
 
     /**
      * This method returns coursesBlock web element.
      */
-    public WebElement getCoursesBlock() {
-        return coursesBlock;
+    public WebElementWrapper getCoursesBlock() {
+        return wrapElement(coursesBlock, "Courses block");
     }
 
     /**
      * This method returns activeCourseCarousel web element.
      */
-    public WebElement getActiveCourseCarousel() {
-        return activeCourseCarousel;
+    public WebElementWrapper getActiveCourseCarousel() {
+        return wrapElement(activeCourseCarousel, "Active course in carousel");
     }
 
     /**
      * This method returns nextCourseCarousel web element.
      */
-    public WebElement getNextCourseCarousel() {
-        return nextCourseCarousel;
+    public WebElementWrapper getNextCourseCarousel() {
+        return wrapElement(nextCourseCarousel, "Next course in carousel");
     }
 
     /**
      * This method returns homePageFooter web element.
      */
-    public WebElement getHomePageFooter() {
-        return homePageFooter;
+    public WebElementWrapper getHomePageFooter() {
+
+        return new WebElementWrapper(homePageFooter, "Home page footer");
     }
 
     /**
      * This method returns courseCarouselNextArrow web element.
      */
-    public WebElement getCourseCarouselNextArrow() {
-        return courseCarouselNextArrow;
+    public WebElementWrapper getCourseCarouselNextArrow() {
+        return wrapElement(courseCarouselNextArrow, "Carousel next arrow");
     }
 
-    public WebElement getCourseCarouselPrevArrow() {
-        return courseCarouselPrevArrow;
-    }
-
-    public WebElement getPrevCourseCarousel() {
-        return prevCourseCarousel;
+    public WebElementWrapper getCourseCarouselPrevArrow() {
+        return wrapElement(courseCarouselPrevArrow, "Carousel prev arrow");
     }
 }

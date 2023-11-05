@@ -1,6 +1,6 @@
 package pages;
 
-import helpers.Waiters;
+import helpers.WebElementWrapper;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -29,8 +29,9 @@ public class AboutUsPage extends BasePage {
     /**
      * Get aboutUsTitle web element.
      */
-    public WebElement getAboutUsTitle() {
-        Waiters.waitVisibilityOfElement(driver, aboutUsTitle);
-        return aboutUsTitle;
+    public WebElementWrapper getAboutUsTitle() {
+        WebElementWrapper aboutUs = wrapElement(aboutUsTitle, "About Us title");
+        waitForElement(aboutUs);
+        return (aboutUs);
     }
 }
