@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.ReadProperties;
+import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,7 +40,7 @@ public class PracticeSite2Page extends BasePage {
     /**
      * Find a Username Description field web element using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//input[@id = 'formly_1_input_username_0']")
+    @FindBy(xpath = "//input[@ng-model = 'model[options.key]']")
     private WebElement usernameDescriptionField;
 
     /**
@@ -47,6 +48,9 @@ public class PracticeSite2Page extends BasePage {
      */
     @FindBy(xpath = "//button[@ng-click = 'Auth.login()']")
     private WebElement loginButton;
+
+    @FindBy(css = ".alert-danger")
+    private WebElement alertMessage;
 
     /**
      * Constructor for getting the driver instance from the BasePage class.
@@ -84,5 +88,9 @@ public class PracticeSite2Page extends BasePage {
     public PracticeSite2HomePage clickLoginButton() {
         clickElement(wrapElement(loginButton, "Login button"));
         return new PracticeSite2HomePage();
+    }
+
+    public WebElementWrapper getAlertMessage() {
+        return wrapElement(alertMessage, "Alert message");
     }
 }
