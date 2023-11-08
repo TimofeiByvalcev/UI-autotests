@@ -18,13 +18,13 @@ public class TestsWithDDT extends BaseTest {
     @Feature("Test authorizations on site")
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")
-    @Parameters({ "Username", "Password", "Description", "Positive/Negative" })
+    @Parameters({"Username", "Password", "Description"})
     @Test(testName = "Check authorization on the Practice Site 2 angular form using data provider",
-            dataProvider = "AuthorizationDataProvider",
+            dataProvider = "AuthorizationValidDataProvider",
             dataProviderClass = AuthorizationDataProvider.class)
-    @Description("In this test we check authorization form on Practice Site 2 page using data provider ")
-    public void authorization(String username, String password,
-                              String description, boolean typeOfTest) {
+    @Description("In this test we check authorization form on Practice Site 2 page using data provider with valid data")
+    public void testValidAuthorization(String username, String password,
+                                       String description) {
 
         PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
 
@@ -34,14 +34,34 @@ public class TestsWithDDT extends BaseTest {
                 .enterPassword(password)
                 .enterUserNameDescription(description)
                 .clickLoginButton();
-        if (typeOfTest) {
-            Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
-            Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
-            BasePage.backToPage();
-        } else {
-            Assert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
-            BasePage.refreshPage();
-        }
 
+        Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
+        Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
+        BasePage.backToPage();
+    }
+
+    @Feature("Test authorizations on site")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Authorization form works on Practice Site 2 page")
+    @Parameters({"Username", "Password", "Description"})
+    @Test(testName = "Check authorization on the Practice Site 2 angular form using data provider",
+            dataProvider = "AuthorizationInvalidDataProvider",
+            dataProviderClass = AuthorizationDataProvider.class)
+    @Description("In this test we check authorization form on Practice Site 2 page using data provider with invalid data")
+    public void testInvalidAuthorization(String username, String password,
+                                         String description) {
+
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+
+        PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
+                .openRegistrationPage()
+                .enterUsername(username)
+                .enterPassword(password)
+                .enterUserNameDescription(description)
+                .clickLoginButton();
+
+        Assert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
+        BasePage.refreshPage();
     }
 }
+
