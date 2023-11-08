@@ -19,7 +19,7 @@ public class TestsWithDDT extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")
     @Parameters({"Username", "Password", "Description"})
-    @Test(testName = "Check authorization on the Practice Site 2 angular form using data provider",
+    @Test(testName = "Check authorization on the Practice Site 2 angular form using valid data provider",
             dataProvider = "AuthorizationValidDataProvider",
             dataProviderClass = AuthorizationDataProvider.class)
     @Description("In this test we check authorization form on Practice Site 2 page using data provider with valid data")
@@ -44,7 +44,7 @@ public class TestsWithDDT extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")
     @Parameters({"Username", "Password", "Description"})
-    @Test(testName = "Check authorization on the Practice Site 2 angular form using data provider",
+    @Test(testName = "Check authorization on the Practice Site 2 angular form using invalid data provider",
             dataProvider = "AuthorizationInvalidDataProvider",
             dataProviderClass = AuthorizationDataProvider.class)
     @Description("In this test we check authorization form on Practice Site 2 page using data provider with invalid data")
