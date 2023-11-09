@@ -1,12 +1,12 @@
 package tests;
 
-import helpers.AuthorizationDataProvider;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.BasePage;
@@ -15,13 +15,31 @@ import pages.PracticeSite2Page;
 
 public class TestsWithDDT extends BaseTest {
 
+    @DataProvider(name = "AuthorizationValidDataProvider")
+    public static Object[][] getValidAuthorizationData() {
+
+        Object[][] validAuthorizationData = {
+                {"angular", "password", "Some description"},
+                {"angular", "password", "test"}
+        };
+        return validAuthorizationData;
+    }
+
+    @DataProvider(name = "AuthorizationInvalidDataProvider")
+    public static Object[][] getInvalidAuthorizationData() {
+        Object[][] invalidAuthorizationData= {
+                {"Test", "Test", "Test"},
+                {"Andrey", "Rublev", "Painter"},
+        };
+        return invalidAuthorizationData;
+    }
     @Feature("Test authorizations on site")
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")
     @Parameters({"Username", "Password", "Description"})
     @Test(testName = "Check authorization on the Practice Site 2 angular form using valid data provider",
             dataProvider = "AuthorizationValidDataProvider",
-            dataProviderClass = AuthorizationDataProvider.class)
+            dataProviderClass = TestsWithDDT.class)
     @Description("In this test we check authorization form on Practice Site 2 page using data provider with valid data")
     public void testValidAuthorization(String username, String password,
                                        String description) {
@@ -46,7 +64,7 @@ public class TestsWithDDT extends BaseTest {
     @Parameters({"Username", "Password", "Description"})
     @Test(testName = "Check authorization on the Practice Site 2 angular form using invalid data provider",
             dataProvider = "AuthorizationInvalidDataProvider",
-            dataProviderClass = AuthorizationDataProvider.class)
+            dataProviderClass = TestsWithDDT.class)
     @Description("In this test we check authorization form on Practice Site 2 page using data provider with invalid data")
     public void testInvalidAuthorization(String username, String password,
                                          String description) {
