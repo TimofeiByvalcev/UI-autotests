@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Testing wau2automation site">
-    <test name="UI tests">
-        <classes>
-            <class name="tests.Tests"/>
-        </classes>
-    </test>
+<suite name="UI autotests">
+    <suite-files>
+        <suite-file path="tests1.xml"></suite-file>
+        <suite-file path="test2.xml"></suite-file>
+    </suite-files>
 </suite>

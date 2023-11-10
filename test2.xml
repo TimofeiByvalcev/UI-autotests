@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Testing authorization form with data provider">
+    <test name="UI tests with data provider">
+        <classes>
+            <class name="tests.TestsWithDDT"/>
+        </classes>
+    </test>
+</suite>

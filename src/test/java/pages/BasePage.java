@@ -92,4 +92,13 @@ abstract public class BasePage {
     protected static WebElementWrapper wrapElement(WebElement element, String description) {
         return new WebElementWrapper(element, description);
     }
+    @Step("Refresh page")
+    public static void refreshPage() {
+        driver.navigate().refresh();
+    }
+
+    @Step("Page back")
+    public static void backToPage() {
+        driver.navigate().back();
+    }
 }

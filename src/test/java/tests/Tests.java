@@ -157,5 +157,4 @@ public class Tests extends BaseTest {
                 .clickSubmitButton();
         Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), practiceSitePage.ALERT_MESSAGE);
     }
-
 }
