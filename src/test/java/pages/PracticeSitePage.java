@@ -165,4 +165,6 @@ public class PracticeSitePage extends BasePage {
         waitForElement(wrapElement(alertMessage, "Alert message on the page"));
         return alertMessage;
     }
+
+
 }

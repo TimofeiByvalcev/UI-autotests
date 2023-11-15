@@ -3,6 +3,7 @@ package pages;
 import helpers.Waiters;
 import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -100,5 +101,13 @@ abstract public class BasePage {
     @Step("Page back")
     public static void backToPage() {
         driver.navigate().back();
+    }
+
+    @Step("Checking scroll presence on the page")
+    public static Boolean checkScrollPresence() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        long contentHeight = (Long) js.executeScript("return document.documentElement.scrollHeight;");
+        long viewportHeight = (Long) js.executeScript("return window.innerHeight;");
+        return contentHeight > viewportHeight;
     }
 }
