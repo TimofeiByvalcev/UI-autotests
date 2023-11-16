@@ -3,6 +3,7 @@ package pages;
 import helpers.ReadProperties;
 import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -28,13 +29,13 @@ public class PracticeSite2Page extends BasePage {
     /**
      * Find a Username field web element using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//input[@id = 'username']")
+    @FindBy(id = "username")
     private WebElement usernameField;
 
     /**
      * Find a Password field web element using @FindBy annotation and xpath.
      */
-    @FindBy(xpath = "//input[@id = 'password']")
+    @FindBy(id = "password")
     private WebElement passwordField;
 
     /**
@@ -51,6 +52,15 @@ public class PracticeSite2Page extends BasePage {
 
     @FindBy(css = ".alert-danger")
     private WebElement alertMessage;
+
+    @FindBy(xpath = "//div[@ng-messages = 'form.username.$error']")
+    private WebElement usernameAlertMessage;
+
+    @FindBy(xpath = "//div[@ng-messages = 'form.password.$error']")
+    private WebElement passwordAlertMessage;
+
+    @FindBy(xpath = "//div[@ng-repeat = 'field in fields ']/div")
+    private WebElement usernameDescription;
 
     /**
      * Constructor for getting the driver instance from the BasePage class.
@@ -92,5 +102,48 @@ public class PracticeSite2Page extends BasePage {
 
     public WebElementWrapper getAlertMessage() {
         return wrapElement(alertMessage, "Alert message");
+    }
+
+    @Step("Enter Username using JS Executor")
+    public PracticeSite2Page enterUsernameJS() {
+        WebElementWrapper wrappedUsername = wrapElement(usernameField, "Username field");
+        clickElement(wrappedUsername);
+        removeFocus(wrappedUsername);
+        return new PracticeSite2Page();
+    }
+
+    @Step("Enter Password using JS Executor")
+    public PracticeSite2Page enterPasswordJS() {
+        WebElementWrapper wrappedPassword = wrapElement(passwordField, "Password field");
+        clickElement(wrappedPassword);
+        removeFocus(wrappedPassword);
+        return new PracticeSite2Page();
+    }
+
+    @Step("Enter Username description using JS Executor")
+    public PracticeSite2Page enterUsernameDescriptionJS() {
+        WebElementWrapper wrappedUsernameDescription = wrapElement(usernameDescriptionField, "Username description field");
+        clickElement(wrappedUsernameDescription);
+        removeFocus(wrappedUsernameDescription);
+        return new PracticeSite2Page();
+    }
+
+    @Step("Remove focus from {element}")
+    public void removeFocus(WebElementWrapper element) {
+        waitForElement(element);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(String.format("document.getElementById('%s').blur();", element.getElement().getAttribute("id")));
+    }
+
+    public WebElementWrapper getUsernameAlertMessage() {
+        return wrapElement(usernameAlertMessage, "Username is required");
+    }
+
+    public WebElementWrapper getPasswordAlertMessage() {
+        return wrapElement(passwordAlertMessage, "Password is required");
+    }
+
+    public WebElementWrapper getUsernameDescription() {
+        return wrapElement(usernameDescription, "Username description is required");
     }
 }

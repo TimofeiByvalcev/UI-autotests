@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AboutUsPage;
+import pages.BasePage;
 import pages.HomePage;
 import pages.PracticeSite2HomePage;
 import pages.PracticeSite2Page;
@@ -38,6 +39,7 @@ public class Tests extends BaseTest {
 
         SoftAssert softAssert = new SoftAssert();
 
+        softAssert.assertTrue(BasePage.checkScrollPresence());
         softAssert.assertTrue(checkPresenceOfElement(homePage.getHomePageHeader()));
         softAssert.assertTrue(checkPresenceOfElement(homePage.getHorizontalMenu()));
         softAssert.assertTrue(checkPresenceOfElement(homePage.getCertificationsBlock()));
@@ -129,7 +131,7 @@ public class Tests extends BaseTest {
     @Story("About Us page is opened from footer")
     @Test(testName = "Check the opening of About Us page")
     @Description("In this test we check that About Us page is opening")
-    public void openAboutUsPage() {
+    public void testOpenAboutUsPage() {
         AboutUsPage aboutUsPage = new HomePage()
                 .openHomePage()
                 .openAboutUsPage();
@@ -144,7 +146,7 @@ public class Tests extends BaseTest {
     @Story("Dummy registration form returns alert message after registration")
     @Test(testName = "Check registration in dummy registration form")
     @Description("In this test we check dummy registration form on practice site 1")
-    public void fillDummyRegistrationForm() {
+    public void testFillDummyRegistrationForm() {
         PracticeSitePage practiceSitePage = new PracticeSitePage()
                 .openPracticeSitePage()
                 .enterDummyName(FakeData.generateFullName())
@@ -156,5 +158,26 @@ public class Tests extends BaseTest {
                 .enterDummyPassword(FakeData.generatePassword())
                 .clickSubmitButton();
         Assert.assertEquals(practiceSitePage.getAlertMessage().getText(), practiceSitePage.ALERT_MESSAGE);
+    }
+
+    @Feature("Test authorizations on site")
+    @Severity(SeverityLevel.MINOR)
+    @Story("Authorization form works on Practice Site 2 page")
+    @Test(testName = "Check that fields are required on the Practice Site 2 angular form using JS Executor")
+    @Description("In this test we check that all field are required in the form on Practice Site 2 page using JS Executor")
+    public void testRequiredField() {
+        SoftAssert softAssert = new SoftAssert();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page().openRegistrationPage();
+
+        practiceSite2Page.enterUsernameJS();
+        softAssert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getUsernameAlertMessage()));
+
+        practiceSite2Page.enterPasswordJS();
+        softAssert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getPasswordAlertMessage()));
+
+        practiceSite2Page.enterUsernameDescriptionJS();
+        softAssert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getUsernameDescription()));
+
+        softAssert.assertAll();
     }
 }
