@@ -25,7 +25,7 @@ abstract public class BasePage {
      * The method initialize driver variable.
      */
     public static void setDriver(WebDriver webDriver) {
-        driver = webDriver;
+            driver = webDriver;
     }
 
     /**
