@@ -10,25 +10,25 @@ import java.net.URI;
 import java.time.Duration;
 
 public class WebDriverFactory {
-    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private static WebDriver driver;
 
     public static WebDriver getDriver() throws MalformedURLException {
-        if (driverThreadLocal.get() == null) {
+        if (driver == null) {
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            WebDriver driver = new RemoteWebDriver(URI.create("http://localhost:4444").toURL(), options);
+            driver = new RemoteWebDriver(URI.create("http://localhost:4444").toURL(), options);
             driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(25));
-            driverThreadLocal.set(driver);
+            return driver;
         }
-        return driverThreadLocal.get();
+        else return null;
     }
 
+
     public static void quitDriver() {
-        if (driverThreadLocal.get() != null) {
-            driverThreadLocal.get().quit();
-            driverThreadLocal.remove();
+        if (driver != null) {
+            driver.quit();
+            driver = null;
         }
     }
 }
-
