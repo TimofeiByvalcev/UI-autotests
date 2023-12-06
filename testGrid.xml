@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="My Test Suite" parallel="classes" thread-count="3">
+<suite name="My Test Suite" parallel="classes" thread-count="2" verbose="10">
     <test name="Test 1">
         <classes>
             <class name="tests.Tests"/>
             <class name="tests.TestsWithDDT"/>
         </classes>
     </test>
-</suite>
+</suite>g

@@ -5,8 +5,8 @@ import helpers.WebDriverFactory;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import pages.BasePage;
 
@@ -45,7 +45,7 @@ abstract public class BaseTest {
     /**
      * Execute methods after tests.
      */
-    @AfterTest
+    @AfterClass
     public void tearDown() {
         WebDriverFactory.quitDriver();
     }
