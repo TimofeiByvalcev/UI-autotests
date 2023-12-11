@@ -17,12 +17,14 @@ import static helpers.Screenshoter.makeAScreenshot;
 /**
  * The base class for initialization and configuration web driver.
  */
-abstract public class BaseTest {
+public class BaseTest {
+
+    BasePage basePage = new BasePage();
 
     /**
      * The driver variable declaration.
      */
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
 
     /**
@@ -30,15 +32,15 @@ abstract public class BaseTest {
      */
     @BeforeClass
     public void setUp() throws MalformedURLException {
-        driver = WebDriverFactory.getDriver();
-        BasePage.setDriver(driver);
+        driver = new WebDriverFactory().getDriver();
+        basePage.setDriver(driver);
         ReadProperties.readProperties();
     }
 
     @AfterMethod
     public void attachScreenshotToAllure(ITestResult result) throws MalformedURLException {
         if (result.getStatus() == ITestResult.FAILURE) {
-            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(WebDriverFactory.getDriver()));
+            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(new WebDriverFactory().getDriver()));
         }
     }
 
@@ -47,6 +49,6 @@ abstract public class BaseTest {
      */
     @AfterClass
     public void tearDown() {
-        WebDriverFactory.quitDriver();
+        new WebDriverFactory().quitDriver();
     }
 }

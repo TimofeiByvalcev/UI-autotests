@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 public class SqlPersonalPage extends BasePage {
 
     public static final String PAGE_TITLE = "Personal page";
+
+    BasePage basePage = new BasePage();
     @FindBy(xpath = "//a[@href = '/logout.php']")
     private WebElement logoutButton;
 
@@ -28,7 +30,7 @@ public class SqlPersonalPage extends BasePage {
         return wrapElement(logoutButton, "Logout button");
     }
 
-    public static WebElementWrapper getPageTitle() {
+    public WebElementWrapper getPageTitle() {
         return wrapElement(pageTitle, "Page title");
     }
 }

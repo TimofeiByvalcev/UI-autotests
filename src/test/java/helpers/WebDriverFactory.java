@@ -9,11 +9,11 @@ import java.net.URI;
 import java.time.Duration;
 
 public class WebDriverFactory {
-    private static WebDriver driver;
+    private WebDriver driver;
 
-    private WebDriverFactory() {};
+    public WebDriverFactory() {};
 
-    public static WebDriver getDriver() throws MalformedURLException {
+    public WebDriver getDriver() throws MalformedURLException {
         if (driver == null) {
             ChromeOptions options = new ChromeOptions();
             driver = new RemoteWebDriver(URI.create("http://localhost:4444").toURL(), options);
@@ -24,10 +24,9 @@ public class WebDriverFactory {
     }
 
 
-    public static void quitDriver() {
+    public void quitDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null;
         }
     }
 }

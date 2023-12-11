@@ -15,6 +15,8 @@ import pages.PracticeSite2Page;
 
 public class TestsWithDDT extends BaseTest {
 
+    BasePage basePage = new BasePage();
+
     @DataProvider(name = "AuthorizationValidDataProvider")
     public static Object[][] getValidAuthorizationData() {
 
@@ -55,7 +57,7 @@ public class TestsWithDDT extends BaseTest {
 
         Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
         Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
-        BasePage.backToPage();
+        basePage.backToPage();
     }
 
     @Feature("Test authorizations on site")
@@ -78,8 +80,8 @@ public class TestsWithDDT extends BaseTest {
                 .enterUserNameDescription(description)
                 .clickLoginButton();
 
-        Assert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
-        BasePage.refreshPage();
+        Assert.assertTrue(basePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
+        basePage.refreshPage();
     }
 }
 

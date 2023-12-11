@@ -14,17 +14,20 @@ import java.util.concurrent.TimeUnit;
 /**
  * The base class for set web driver.
  */
-abstract public class BasePage {
+public class BasePage {
 
     /**
      * The driver variable declaration.
      */
-    protected static WebDriver driver;
+    protected WebDriver driver;
+
+    public BasePage() {
+    }
 
     /**
      * The method initialize driver variable.
      */
-    public static void setDriver(WebDriver webDriver) {
+    public void setDriver(WebDriver webDriver) {
             driver = webDriver;
     }
 
@@ -32,7 +35,7 @@ abstract public class BasePage {
      * This method provides functionality of moving to element on the page.
      */
     @Step("Move to {element}")
-    public static void moveToElement(WebElementWrapper element) {
+    public void moveToElement(WebElementWrapper element) {
         waitForElement(element);
         Actions actions = new Actions(driver);
         actions.moveToElement(element.getElement()).perform();
@@ -42,7 +45,7 @@ abstract public class BasePage {
      * This method for element's waiting.
      */
     @Step("Wait for {element}")
-    public static void waitForElement(WebElementWrapper element) {
+    public void waitForElement(WebElementWrapper element) {
         Waiters.waitVisibilityOfElement(driver, element.getElement());
     }
 
@@ -50,7 +53,7 @@ abstract public class BasePage {
      * This method check that element is displayed.
      */
     @Step("Check presence of {element}")
-    public static boolean checkPresenceOfElement(WebElementWrapper element) {
+    public boolean checkPresenceOfElement(WebElementWrapper element) {
         waitForElement(element);
         return element.getElement().isDisplayed();
     }
@@ -59,7 +62,7 @@ abstract public class BasePage {
      * This method provides the ability to click on an element.
      */
     @Step("Click {element}")
-    public static void clickElement(WebElementWrapper element) {
+    public void clickElement(WebElementWrapper element) {
         waitForElement(element);
         element.getElement().click();
     }
@@ -68,7 +71,7 @@ abstract public class BasePage {
      * This method provides functionality of sendKeys() method, but with waiting.
      */
     @Step("Send keys to {element}")
-    public static void sendKeysToElement(WebElementWrapper element, CharSequence... expression) {
+    public void sendKeysToElement(WebElementWrapper element, CharSequence... expression) {
         waitForElement(element);
         element.getElement().sendKeys(expression);
     }
@@ -77,34 +80,34 @@ abstract public class BasePage {
      * This method provides functionality of select item from selector.
      */
     @Step("Select element by value from dropdown list")
-    public static void selectByValue(WebElementWrapper element, String value) {
+    public void selectByValue(WebElementWrapper element, String value) {
         waitForElement(element);
         Select countrySelector = new Select(element.getElement());
         countrySelector.selectByValue(value);
     }
 
     @Step("Wait {element} has class")
-    public static void waitElementHasClass(WebElementWrapper element, String elementClass) throws InterruptedException {
+    public void waitElementHasClass(WebElementWrapper element, String elementClass) throws InterruptedException {
         if (!element.getElement().getAttribute("class").contains(elementClass)) {
             TimeUnit.SECONDS.sleep(1);
         }
     }
 
-    protected static WebElementWrapper wrapElement(WebElement element, String description) {
+    protected WebElementWrapper wrapElement(WebElement element, String description) {
         return new WebElementWrapper(element, description);
     }
     @Step("Refresh page")
-    public static void refreshPage() {
+    public void refreshPage() {
         driver.navigate().refresh();
     }
 
     @Step("Page back")
-    public static void backToPage() {
+    public void backToPage() {
         driver.navigate().back();
     }
 
     @Step("Checking scroll presence on the page")
-    public static Boolean checkScrollPresence() {
+    public Boolean checkScrollPresence() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         long contentHeight = (Long) js.executeScript("return document.documentElement.scrollHeight;");
         long viewportHeight = (Long) js.executeScript("return window.innerHeight;");

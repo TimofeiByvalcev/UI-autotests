@@ -11,8 +11,6 @@ import org.testng.annotations.Test;
 import pages.SqlLoginPage;
 import pages.SqlPersonalPage;
 
-import static pages.BasePage.refreshPage;
-
 public class TestWithCookies extends BaseTest {
 
     @Feature("Authorization on SQL exercises")
@@ -24,11 +22,11 @@ public class TestWithCookies extends BaseTest {
         SqlLoginPage sqlLoginPage = new SqlLoginPage().openLoginPage();
         if (CookieHandler.CheckFileExistence("src/test/resources/cookies.txt")) {
             CookieHandler.setCookieToDriver(driver, "src/test/resources/cookies.txt");
-            refreshPage();
+            sqlLoginPage.refreshPage();
             sqlLoginPage.clickProfileLink();
 
-            Assert.assertEquals(SqlPersonalPage.getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
-            Assert.assertTrue(SqlPersonalPage.checkPresenceOfElement(new SqlPersonalPage().getLogoutButton()));
+            Assert.assertEquals(new SqlPersonalPage().getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
+            Assert.assertTrue(new SqlPersonalPage().checkPresenceOfElement(new SqlPersonalPage().getLogoutButton()));
         } else {
             SqlPersonalPage sqlPersonalPage = new SqlLoginPage()
                     .openLoginPage()
@@ -36,8 +34,8 @@ public class TestWithCookies extends BaseTest {
                     .enterPassword()
                     .clickEnter()
                     .clickProfileLink();
-            Assert.assertEquals(SqlPersonalPage.getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
-            Assert.assertTrue(SqlPersonalPage.checkPresenceOfElement(sqlPersonalPage.getLogoutButton()));
+            Assert.assertEquals(new SqlPersonalPage().getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
+            Assert.assertTrue(new SqlPersonalPage().checkPresenceOfElement(sqlPersonalPage.getLogoutButton()));
             CookieHandler.writeCookiesToFile(driver, "src/test/resources/cookies.txt");
         }
     }
