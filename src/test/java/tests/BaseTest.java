@@ -36,7 +36,6 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
-        WebDriverFactory factory = new WebDriverFactory();
         driver = factory.getDriver();
         ReadProperties.readProperties();
     }
@@ -52,7 +51,7 @@ public class BaseTest {
      * Execute methods after tests.
      */
     @AfterClass
-    public void tearDown(WebDriverFactory factory) {
+    public void tearDown() {
         factory.quitDriver();
     }
 }
