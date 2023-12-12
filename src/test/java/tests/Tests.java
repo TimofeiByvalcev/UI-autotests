@@ -21,7 +21,7 @@ import pages.PracticeSitePage;
  */
 public class Tests extends BaseTest {
 
-    BasePage basePage = new BasePage();
+    BasePage page = new BasePage();
     /**
      * Check presence of elements on the home page.
      */
@@ -31,16 +31,17 @@ public class Tests extends BaseTest {
     @Test(testName = "Check presence of elements")
     @Description("In this test we check that needed elements presented on the page")
     public void testPresenceOfElements() {
+
         HomePage homePage = new HomePage().openHomePage();
 
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertTrue(basePage.checkScrollPresence());
-        softAssert.assertTrue(basePage.checkPresenceOfElement(homePage.getHomePageHeader()));
-        softAssert.assertTrue(basePage.checkPresenceOfElement(homePage.getHorizontalMenu()));
-        softAssert.assertTrue(basePage.checkPresenceOfElement(homePage.getCertificationsBlock()));
-        softAssert.assertTrue(basePage.checkPresenceOfElement(homePage.getCoursesBlock()));
-        softAssert.assertTrue(basePage.checkPresenceOfElement(homePage.getHomePageFooter()));
+        softAssert.assertTrue(page.checkScrollPresence());
+        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageHeader()));
+        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHorizontalMenu()));
+        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getCertificationsBlock()));
+        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getCoursesBlock()));
+        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageFooter()));
         softAssert.assertAll();
     }
 
@@ -52,15 +53,15 @@ public class Tests extends BaseTest {
     public void testCoursesCarousel() throws InterruptedException {
         HomePage homePage = new HomePage().openHomePage();
 
-        basePage.moveToElement(homePage.getCoursesBlock());
+        page.moveToElement(homePage.getCoursesBlock());
 
         String activeCourseName = homePage.getCourseName(homePage.getActiveCourseCarousel());
-        basePage.clickElement(homePage.getCourseCarouselPrevArrow());
-        basePage.waitElementHasClass(homePage.getNextCourseCarousel(), "swiper-slide-next");
+        page.clickElement(homePage.getCourseCarouselPrevArrow());
+        page.waitElementHasClass(homePage.getNextCourseCarousel(), "swiper-slide-next");
         Assert.assertEquals(homePage.getCourseName(homePage.getNextCourseCarousel()), activeCourseName, "Slider isn't work");
 
         String nextCourseName = homePage.getCourseName(homePage.getNextCourseCarousel());
-        basePage.clickElement(homePage.getCourseCarouselNextArrow());
+        page.clickElement(homePage.getCourseCarouselNextArrow());
         Assert.assertEquals(homePage.getCourseName(homePage.getActiveCourseCarousel()), nextCourseName, "Slider isn't work");
     }
 
@@ -75,9 +76,9 @@ public class Tests extends BaseTest {
     public void testMenuInHeaderAfterScroll() {
         HomePage homePage = new HomePage().openHomePage();
 
-        basePage.moveToElement(homePage.getHomePageFooter());
+        page.moveToElement(homePage.getHomePageFooter());
 
-        Assert.assertTrue(basePage.checkPresenceOfElement(homePage.getHomePageHeader()), "Header isn't displayed after scroll");
+        Assert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageHeader()), "Header isn't displayed after scroll");
     }
 
     /**
@@ -166,13 +167,13 @@ public class Tests extends BaseTest {
         PracticeSite2Page practiceSite2Page = new PracticeSite2Page().openRegistrationPage();
 
         practiceSite2Page.enterUsernameJS();
-        softAssert.assertTrue(basePage.checkPresenceOfElement(practiceSite2Page.getUsernameAlertMessage()));
+        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getUsernameAlertMessage()));
 
         practiceSite2Page.enterPasswordJS();
-        softAssert.assertTrue(basePage.checkPresenceOfElement(practiceSite2Page.getPasswordAlertMessage()));
+        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getPasswordAlertMessage()));
 
         practiceSite2Page.enterUsernameDescriptionJS();
-        softAssert.assertTrue(basePage.checkPresenceOfElement(practiceSite2Page.getUsernameDescription()));
+        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getUsernameDescription()));
 
         softAssert.assertAll();
     }

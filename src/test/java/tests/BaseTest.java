@@ -8,7 +8,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import pages.BasePage;
 
 import java.net.MalformedURLException;
 
@@ -19,21 +18,26 @@ import static helpers.Screenshoter.makeAScreenshot;
  */
 public class BaseTest {
 
-    BasePage basePage = new BasePage();
-
     /**
      * The driver variable declaration.
      */
     protected WebDriver driver;
 
+    WebDriverFactory factory = new WebDriverFactory();
+
+    public WebDriver getDriver() {
+        return driver;
+    }
 
     /**
      * Set base configuration and execute methods before tests.
      */
+
+
     @BeforeClass
     public void setUp() throws MalformedURLException {
-        driver = new WebDriverFactory().getDriver();
-        basePage.setDriver(driver);
+        WebDriverFactory factory = new WebDriverFactory();
+        driver = factory.getDriver();
         ReadProperties.readProperties();
     }
 
@@ -48,7 +52,7 @@ public class BaseTest {
      * Execute methods after tests.
      */
     @AfterClass
-    public void tearDown() {
-        new WebDriverFactory().quitDriver();
+    public void tearDown(WebDriverFactory factory) {
+        factory.quitDriver();
     }
 }
