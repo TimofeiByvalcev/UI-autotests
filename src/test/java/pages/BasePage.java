@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import tests.BaseTest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +19,12 @@ public class BasePage {
     /**
      * The driver variable declaration and initialization.
      */
-    protected WebDriver driver = new BaseTest().getDriver();
+    protected WebDriver driver;
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+        System.out.println("Драйвер передан в BasePage");
+    }
 
     /**
      * This method provides functionality of moving to element on the page.
