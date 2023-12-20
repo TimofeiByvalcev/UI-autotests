@@ -26,12 +26,13 @@ public class TestsWithDDT extends BaseTest {
 
     @DataProvider(name = "AuthorizationInvalidDataProvider")
     public static Object[][] getInvalidAuthorizationData() {
-        Object[][] invalidAuthorizationData= {
+        Object[][] invalidAuthorizationData = {
                 {"Test", "Test", "Test"},
                 {"Andrey", "Rublev", "Painter"},
         };
         return invalidAuthorizationData;
     }
+
     @Feature("Test authorizations on site")
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")

@@ -16,14 +16,14 @@ public class SqlPersonalPage extends BasePage {
     @FindBy(xpath = "//h2")
     private static WebElement pageTitle;
 
-    public SqlPersonalPage(WebDriver driver){
+    public SqlPersonalPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
     public SqlPersonalPage openPersonalPage() {
         driver.get(ReadProperties.readProperty("sql_personal_page"));
-        return  new SqlPersonalPage(driver);
+        return new SqlPersonalPage(driver);
     }
 
     public WebElementWrapper getLogoutButton() {

@@ -90,6 +90,7 @@ public class BasePage {
     protected WebElementWrapper wrapElement(WebElement element, String description) {
         return new WebElementWrapper(element, description);
     }
+
     @Step("Refresh page")
     public void refreshPage() {
         driver.navigate().refresh();

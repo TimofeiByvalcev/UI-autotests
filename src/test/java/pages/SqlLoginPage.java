@@ -25,7 +25,7 @@ public class SqlLoginPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/personal.php']")
     private WebElement profileLink;
 
-    public SqlLoginPage (WebDriver driver) {
+    public SqlLoginPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
