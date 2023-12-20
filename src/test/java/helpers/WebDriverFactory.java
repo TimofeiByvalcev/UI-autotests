@@ -19,9 +19,7 @@ public class WebDriverFactory {
             driver = new RemoteWebDriver(URI.create("http://localhost:4444").toURL(), options);
             driver.manage().window().maximize();
             driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(25));
-            System.out.println("Драйвер создан");
         }
-        System.out.println("Драйвер отдан");
         return driver;
     }
 

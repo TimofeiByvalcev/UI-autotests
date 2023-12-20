@@ -18,9 +18,10 @@ public class Waiters {
      * The waitVisibilityOfElement method receives a web element as a parameter.
      */
     public static void waitVisibilityOfElement(WebDriver driver, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+            wait.until(ExpectedConditions.visibilityOf(element));
+
+        }
 
     /**
      * The waitVisibilityOfElements method receives a xpath string as a parameter.

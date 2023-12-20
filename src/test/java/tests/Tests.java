@@ -10,7 +10,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AboutUsPage;
-import pages.BasePage;
 import pages.HomePage;
 import pages.PracticeSite2HomePage;
 import pages.PracticeSite2Page;
@@ -21,7 +20,6 @@ import pages.PracticeSitePage;
  */
 public class Tests extends BaseTest {
 
-    BasePage page = new BasePage();
     /**
      * Check presence of elements on the home page.
      */
@@ -32,16 +30,16 @@ public class Tests extends BaseTest {
     @Description("In this test we check that needed elements presented on the page")
     public void testPresenceOfElements() {
 
-        HomePage homePage = new HomePage().openHomePage();
+        HomePage homePage = new HomePage(driver).openHomePage();
 
         SoftAssert softAssert = new SoftAssert();
 
-        softAssert.assertTrue(page.checkScrollPresence());
-        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageHeader()));
-        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHorizontalMenu()));
-        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getCertificationsBlock()));
-        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getCoursesBlock()));
-        softAssert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageFooter()));
+        softAssert.assertTrue(homePage.checkScrollPresence());
+        softAssert.assertTrue(homePage.checkPresenceOfElement(homePage.getHomePageHeader()));
+        softAssert.assertTrue(homePage.checkPresenceOfElement(homePage.getHorizontalMenu()));
+        softAssert.assertTrue(homePage.checkPresenceOfElement(homePage.getCertificationsBlock()));
+        softAssert.assertTrue(homePage.checkPresenceOfElement(homePage.getCoursesBlock()));
+        softAssert.assertTrue(homePage.checkPresenceOfElement(homePage.getHomePageFooter()));
         softAssert.assertAll();
     }
 
@@ -51,17 +49,17 @@ public class Tests extends BaseTest {
     @Test(testName = "Check courses carousel is work")
     @Description("In this test we check that courses carousel works")
     public void testCoursesCarousel() throws InterruptedException {
-        HomePage homePage = new HomePage().openHomePage();
+        HomePage homePage = new HomePage(driver).openHomePage();
 
-        page.moveToElement(homePage.getCoursesBlock());
+        homePage.moveToElement(homePage.getCoursesBlock());
 
         String activeCourseName = homePage.getCourseName(homePage.getActiveCourseCarousel());
-        page.clickElement(homePage.getCourseCarouselPrevArrow());
-        page.waitElementHasClass(homePage.getNextCourseCarousel(), "swiper-slide-next");
+        homePage.clickElement(homePage.getCourseCarouselPrevArrow());
+        homePage.waitElementHasClass(homePage.getNextCourseCarousel(), "swiper-slide-next");
         Assert.assertEquals(homePage.getCourseName(homePage.getNextCourseCarousel()), activeCourseName, "Slider isn't work");
 
         String nextCourseName = homePage.getCourseName(homePage.getNextCourseCarousel());
-        page.clickElement(homePage.getCourseCarouselNextArrow());
+        homePage.clickElement(homePage.getCourseCarouselNextArrow());
         Assert.assertEquals(homePage.getCourseName(homePage.getActiveCourseCarousel()), nextCourseName, "Slider isn't work");
     }
 
@@ -74,11 +72,11 @@ public class Tests extends BaseTest {
     @Test(testName = "Check that header is displayed after scroll")
     @Description("In this test we check that header is displaying after scroll")
     public void testMenuInHeaderAfterScroll() {
-        HomePage homePage = new HomePage().openHomePage();
+        HomePage homePage = new HomePage(driver).openHomePage();
 
-        page.moveToElement(homePage.getHomePageFooter());
+        homePage.moveToElement(homePage.getHomePageFooter());
 
-        Assert.assertTrue(page.checkPresenceOfElement(homePage.getHomePageHeader()), "Header isn't displayed after scroll");
+        Assert.assertTrue(homePage.checkPresenceOfElement(homePage.getHomePageHeader()), "Header isn't displayed after scroll");
     }
 
     /**
@@ -90,7 +88,7 @@ public class Tests extends BaseTest {
     @Test(testName = "Check that page can be opened from horizontal menu")
     @Description("In this test we check page opening from horizontal menu")
     public void testOpenPracticeSite() {
-        PracticeSitePage practiceSitePage = new HomePage()
+        PracticeSitePage practiceSitePage = new HomePage(driver)
                 .openHomePage()
                 .openPageFromMenu()
                 .clickTestingWebsiteLink();
@@ -107,7 +105,7 @@ public class Tests extends BaseTest {
     @Test(testName = "Check authorization on the Practice Site 2 angular form")
     @Description("In this test we check authorization form on Practice Site 2 page")
     public void authorization() {
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver);
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
@@ -129,7 +127,7 @@ public class Tests extends BaseTest {
     @Test(testName = "Check the opening of About Us page")
     @Description("In this test we check that About Us page is opening")
     public void testOpenAboutUsPage() {
-        AboutUsPage aboutUsPage = new HomePage()
+        AboutUsPage aboutUsPage = new HomePage(driver)
                 .openHomePage()
                 .openAboutUsPage();
         Assert.assertEquals(aboutUsPage.getAboutUsTitle().getElement().getText(), aboutUsPage.PAGE_TITLE);
@@ -144,7 +142,7 @@ public class Tests extends BaseTest {
     @Test(testName = "Check registration in dummy registration form")
     @Description("In this test we check dummy registration form on practice site 1")
     public void testFillDummyRegistrationForm() {
-        PracticeSitePage practiceSitePage = new PracticeSitePage()
+        PracticeSitePage practiceSitePage = new PracticeSitePage(driver)
                 .openPracticeSitePage()
                 .enterDummyName(FakeData.generateFullName())
                 .enterDummyPhone(FakeData.generatePhoneNumber())
@@ -164,16 +162,16 @@ public class Tests extends BaseTest {
     @Description("In this test we check that all field are required in the form on Practice Site 2 page using JS Executor")
     public void testRequiredField() {
         SoftAssert softAssert = new SoftAssert();
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page().openRegistrationPage();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver).openRegistrationPage();
 
         practiceSite2Page.enterUsernameJS();
-        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getUsernameAlertMessage()));
+        softAssert.assertTrue(practiceSite2Page.checkPresenceOfElement(practiceSite2Page.getUsernameAlertMessage()));
 
         practiceSite2Page.enterPasswordJS();
-        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getPasswordAlertMessage()));
+        softAssert.assertTrue(practiceSite2Page.checkPresenceOfElement(practiceSite2Page.getPasswordAlertMessage()));
 
         practiceSite2Page.enterUsernameDescriptionJS();
-        softAssert.assertTrue(page.checkPresenceOfElement(practiceSite2Page.getUsernameDescription()));
+        softAssert.assertTrue(practiceSite2Page.checkPresenceOfElement(practiceSite2Page.getUsernameDescription()));
 
         softAssert.assertAll();
     }

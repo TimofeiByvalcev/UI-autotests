@@ -9,13 +9,10 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.BasePage;
 import pages.PracticeSite2HomePage;
 import pages.PracticeSite2Page;
 
 public class TestsWithDDT extends BaseTest {
-
-    BasePage basePage = new BasePage();
 
     @DataProvider(name = "AuthorizationValidDataProvider")
     public static Object[][] getValidAuthorizationData() {
@@ -46,7 +43,7 @@ public class TestsWithDDT extends BaseTest {
     public void testValidAuthorization(String username, String password,
                                        String description) {
 
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver);
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
@@ -57,7 +54,7 @@ public class TestsWithDDT extends BaseTest {
 
         Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
         Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
-        basePage.backToPage();
+        practiceSite2Page.backToPage();
     }
 
     @Feature("Test authorizations on site")
@@ -71,7 +68,7 @@ public class TestsWithDDT extends BaseTest {
     public void testInvalidAuthorization(String username, String password,
                                          String description) {
 
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver);
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
@@ -80,8 +77,8 @@ public class TestsWithDDT extends BaseTest {
                 .enterUserNameDescription(description)
                 .clickLoginButton();
 
-        Assert.assertTrue(basePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
-        basePage.refreshPage();
+        Assert.assertTrue(practiceSite2Page.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
+        practiceSite2Page.refreshPage();
     }
 }
 

@@ -2,6 +2,7 @@ package pages;
 
 import helpers.ReadProperties;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -90,20 +91,21 @@ public class PracticeSitePage extends BasePage {
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
      */
-    public PracticeSitePage() {
+    public PracticeSitePage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     @Step("Open Practice Site page")
     public PracticeSitePage openPracticeSitePage() {
         driver.get(ReadProperties.readProperty("practice_site1"));
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Click testing website link")
     public PracticeSitePage clickTestingWebsiteLink() {
         clickElement(wrapElement(testingWebsiteLink, "Testing website link"));
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Get page description")
@@ -115,49 +117,49 @@ public class PracticeSitePage extends BasePage {
     @Step("Enter name in dummy form")
     public PracticeSitePage enterDummyName(String name) {
         sendKeysToElement(wrapElement(dummyFormName, "Name field"), name);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Enter phone in dummy form")
     public PracticeSitePage enterDummyPhone(String phone) {
         sendKeysToElement(wrapElement(dummyFormPhone, "Phone field"), phone);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Enter email in dummy form")
     public PracticeSitePage enterDummyEmail(String email) {
         sendKeysToElement(wrapElement(dummyFormEmail, "Email form"), email);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Select country in dummy form")
     public PracticeSitePage selectDummyCountry(String country) {
         selectByValue(wrapElement(dummyFormCountry, "Country in dropdown"), country);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Enter city in dummy form")
     public PracticeSitePage enterDummyCity(String city) {
         sendKeysToElement(wrapElement(dummyFormCity, "City field"), city);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Enter username in dummy form")
     public PracticeSitePage enterDummyUsername(String username) {
         sendKeysToElement(wrapElement(dummyFormUserName, "Username field"), username);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Enter password in dummy form")
     public PracticeSitePage enterDummyPassword(String password) {
         sendKeysToElement(wrapElement(dummyFormPassword, "Password field"), password);
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Click Submit button dummy form")
     public PracticeSitePage clickSubmitButton() {
         clickElement(wrapElement(submitButton, "Submit form"));
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     @Step("Get alert message in dummy form")

@@ -2,6 +2,7 @@ package pages;
 
 import helpers.ReadProperties;
 import helpers.WebElementWrapper;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,13 +16,14 @@ public class SqlPersonalPage extends BasePage {
     @FindBy(xpath = "//h2")
     private static WebElement pageTitle;
 
-    public SqlPersonalPage(){
+    public SqlPersonalPage(WebDriver driver){
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     public SqlPersonalPage openPersonalPage() {
         driver.get(ReadProperties.readProperty("sql_personal_page"));
-        return  new SqlPersonalPage();
+        return  new SqlPersonalPage(driver);
     }
 
     public WebElementWrapper getLogoutButton() {

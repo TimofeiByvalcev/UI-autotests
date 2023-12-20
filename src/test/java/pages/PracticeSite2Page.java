@@ -4,6 +4,7 @@ import helpers.ReadProperties;
 import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -66,38 +67,39 @@ public class PracticeSite2Page extends BasePage {
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
      */
-    public PracticeSite2Page() {
+    public PracticeSite2Page(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     @Step("Open Registration Site 2 page")
     public PracticeSite2Page openRegistrationPage() {
         driver.get(ReadProperties.readProperty("practice_site2"));
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Enter Username")
     public PracticeSite2Page enterUsername(String username) {
         sendKeysToElement(wrapElement(usernameField, "Username field"), username);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Enter Password")
     public PracticeSite2Page enterPassword(String password) {
         sendKeysToElement(wrapElement(passwordField, "Password field"), password);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Enter Username Description")
     public PracticeSite2Page enterUserNameDescription(String usernameDescription) {
         sendKeysToElement(wrapElement(usernameDescriptionField, "Description field"), usernameDescription);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Click Login button")
     public PracticeSite2HomePage clickLoginButton() {
         clickElement(wrapElement(loginButton, "Login button"));
-        return new PracticeSite2HomePage();
+        return new PracticeSite2HomePage(driver);
     }
 
     public WebElementWrapper getAlertMessage() {
@@ -109,7 +111,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedUsername = wrapElement(usernameField, "Username field");
         clickElement(wrappedUsername);
         removeFocus(wrappedUsername);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Enter Password using JS Executor")
@@ -117,7 +119,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedPassword = wrapElement(passwordField, "Password field");
         clickElement(wrappedPassword);
         removeFocus(wrappedPassword);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Enter Username description using JS Executor")
@@ -125,7 +127,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedUsernameDescription = wrapElement(usernameDescriptionField, "Username description field");
         clickElement(wrappedUsernameDescription);
         removeFocus(wrappedUsernameDescription);
-        return new PracticeSite2Page();
+        return new PracticeSite2Page(driver);
     }
 
     @Step("Remove focus from {element}")

@@ -16,15 +16,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class BasePage {
 
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
     /**
      * The driver variable declaration and initialization.
      */
     protected WebDriver driver;
-
-    public void setDriver(WebDriver driver) {
-        this.driver = driver;
-        System.out.println("Драйвер передан в BasePage");
-    }
 
     /**
      * This method provides functionality of moving to element on the page.

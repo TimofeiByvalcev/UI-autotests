@@ -8,7 +8,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import pages.BasePage;
 
 import java.net.MalformedURLException;
 
@@ -34,11 +33,7 @@ public class BaseTest {
     @BeforeClass
     public void setUp() throws MalformedURLException {
         driver = factory.getDriver();
-        System.out.println("в BeforeClass получен драйвер");
         ReadProperties.readProperties();
-        new BasePage().setDriver(driver);
-        System.out.println("в BasePage прокинут драйвер");
-        System.out.println("Драйвер получен из фабрики, инициализирован в BaseTest и прокинут в BasePage");
     }
 
     @AfterMethod
@@ -54,6 +49,5 @@ public class BaseTest {
     @AfterClass
     public void tearDown() {
         factory.quitDriver();
-        System.out.println("Драйвер закрыт");
     }
 }

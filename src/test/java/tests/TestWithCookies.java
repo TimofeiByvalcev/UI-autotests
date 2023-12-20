@@ -19,23 +19,25 @@ public class TestWithCookies extends BaseTest {
     @Test(testName = "Check authorization with cookies on SQL exercises site")
     @Description("In this test we check that authorization with cookies works")
     public void authWithCookie() {
-        SqlLoginPage sqlLoginPage = new SqlLoginPage().openLoginPage();
+        SqlLoginPage sqlLoginPage = new SqlLoginPage(driver).openLoginPage();
         if (CookieHandler.CheckFileExistence("src/test/resources/cookies.txt")) {
             CookieHandler.setCookieToDriver(driver, "src/test/resources/cookies.txt");
             sqlLoginPage.refreshPage();
             sqlLoginPage.clickProfileLink();
 
-            Assert.assertEquals(new SqlPersonalPage().getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
-            Assert.assertTrue(new SqlPersonalPage().checkPresenceOfElement(new SqlPersonalPage().getLogoutButton()));
+            SqlPersonalPage sqlPersonalPage = new SqlPersonalPage(driver);
+
+            Assert.assertEquals(sqlPersonalPage.getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
+            Assert.assertTrue(sqlPersonalPage.checkPresenceOfElement(sqlPersonalPage.getLogoutButton()));
         } else {
-            SqlPersonalPage sqlPersonalPage = new SqlLoginPage()
+            SqlPersonalPage sqlPersonalPage = new SqlLoginPage(driver)
                     .openLoginPage()
                     .enterLogin()
                     .enterPassword()
                     .clickEnter()
                     .clickProfileLink();
-            Assert.assertEquals(new SqlPersonalPage().getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
-            Assert.assertTrue(new SqlPersonalPage().checkPresenceOfElement(sqlPersonalPage.getLogoutButton()));
+            Assert.assertEquals(sqlPersonalPage.getPageTitle().getElement().getText(), SqlPersonalPage.PAGE_TITLE);
+            Assert.assertTrue(sqlPersonalPage.checkPresenceOfElement(sqlPersonalPage.getLogoutButton()));
             CookieHandler.writeCookiesToFile(driver, "src/test/resources/cookies.txt");
         }
     }
