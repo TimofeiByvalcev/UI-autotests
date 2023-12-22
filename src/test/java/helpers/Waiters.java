@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 
@@ -17,7 +18,7 @@ public class Waiters {
      * The waitVisibilityOfElement method receives a web element as a parameter.
      */
     public static void waitVisibilityOfElement(WebDriver driver, WebElement element) {
-        WebDriverWait wait = new WebDriverWait(driver, 25);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -25,7 +26,7 @@ public class Waiters {
      * The waitVisibilityOfElements method receives a xpath string as a parameter.
      */
     public static void waitVisibilityOfElements(WebDriver driver, List<WebElement> webElements) {
-        WebDriverWait wait = new WebDriverWait(driver, 25);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         wait.until(ExpectedConditions.visibilityOfAllElements(webElements));
     }
 }

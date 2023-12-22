@@ -4,6 +4,7 @@ package pages;
 import helpers.ReadProperties;
 import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -95,14 +96,15 @@ public class HomePage extends BasePage {
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
      */
-    public HomePage() {
+    public HomePage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     @Step("Open Home page")
     public HomePage openHomePage() {
         driver.get(ReadProperties.readProperty("home_page_url"));
-        return new HomePage();
+        return new HomePage(driver);
     }
 
     /**
@@ -120,7 +122,7 @@ public class HomePage extends BasePage {
     public PracticeSitePage openPageFromMenu() {
         clickElement(wrapElement(resourcesOptionMenu, "Resource option in horizontal menu"));
         clickElement(wrapElement(practiceSite1, "Practice Site 1"));
-        return new PracticeSitePage();
+        return new PracticeSitePage(driver);
     }
 
     /**
@@ -129,7 +131,7 @@ public class HomePage extends BasePage {
     public AboutUsPage openAboutUsPage() {
         moveToElement(wrapElement(homePageFooter, "Home page footer"));
         clickElement(wrapElement(aboutUs, "About us page"));
-        return new AboutUsPage();
+        return new AboutUsPage(driver);
     }
 
     /**

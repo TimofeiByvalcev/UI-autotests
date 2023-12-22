@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.WebElementWrapper;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -22,7 +23,8 @@ public class AboutUsPage extends BasePage {
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
      */
-    public AboutUsPage() {
+    public AboutUsPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -32,6 +34,6 @@ public class AboutUsPage extends BasePage {
     public WebElementWrapper getAboutUsTitle() {
         WebElementWrapper aboutUs = wrapElement(aboutUsTitle, "About Us title");
         waitForElement(aboutUs);
-        return (aboutUs);
+        return aboutUs;
     }
 }

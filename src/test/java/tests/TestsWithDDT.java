@@ -9,7 +9,6 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.BasePage;
 import pages.PracticeSite2HomePage;
 import pages.PracticeSite2Page;
 
@@ -27,12 +26,13 @@ public class TestsWithDDT extends BaseTest {
 
     @DataProvider(name = "AuthorizationInvalidDataProvider")
     public static Object[][] getInvalidAuthorizationData() {
-        Object[][] invalidAuthorizationData= {
+        Object[][] invalidAuthorizationData = {
                 {"Test", "Test", "Test"},
                 {"Andrey", "Rublev", "Painter"},
         };
         return invalidAuthorizationData;
     }
+
     @Feature("Test authorizations on site")
     @Severity(SeverityLevel.MINOR)
     @Story("Authorization form works on Practice Site 2 page")
@@ -44,7 +44,7 @@ public class TestsWithDDT extends BaseTest {
     public void testValidAuthorization(String username, String password,
                                        String description) {
 
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver);
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
@@ -55,7 +55,7 @@ public class TestsWithDDT extends BaseTest {
 
         Assert.assertEquals(practiceSite2HomePage.getPageTitle().getElement().getText(), practiceSite2HomePage.PAGE_TITLE);
         Assert.assertEquals(practiceSite2HomePage.getLoggedInMessage().getElement().getText(), practiceSite2HomePage.LOGGED_IN_MESSAGE);
-        BasePage.backToPage();
+        practiceSite2Page.backToPage();
     }
 
     @Feature("Test authorizations on site")
@@ -69,7 +69,7 @@ public class TestsWithDDT extends BaseTest {
     public void testInvalidAuthorization(String username, String password,
                                          String description) {
 
-        PracticeSite2Page practiceSite2Page = new PracticeSite2Page();
+        PracticeSite2Page practiceSite2Page = new PracticeSite2Page(driver);
 
         PracticeSite2HomePage practiceSite2HomePage = practiceSite2Page
                 .openRegistrationPage()
@@ -78,8 +78,8 @@ public class TestsWithDDT extends BaseTest {
                 .enterUserNameDescription(description)
                 .clickLoginButton();
 
-        Assert.assertTrue(BasePage.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
-        BasePage.refreshPage();
+        Assert.assertTrue(practiceSite2Page.checkPresenceOfElement(practiceSite2Page.getAlertMessage()));
+        practiceSite2Page.refreshPage();
     }
 }
 

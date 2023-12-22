@@ -2,6 +2,7 @@ package pages;
 
 import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -37,7 +38,8 @@ public class PracticeSite2HomePage extends BasePage {
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
      */
-    public PracticeSite2HomePage() {
+    public PracticeSite2HomePage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

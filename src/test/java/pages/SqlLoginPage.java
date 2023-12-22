@@ -2,6 +2,7 @@ package pages;
 
 import helpers.ReadProperties;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -24,37 +25,38 @@ public class SqlLoginPage extends BasePage {
     @FindBy(xpath = "//a[@href = '/personal.php']")
     private WebElement profileLink;
 
-    public SqlLoginPage () {
+    public SqlLoginPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
     @Step("Open Home page")
     public SqlLoginPage openLoginPage() {
         driver.get(ReadProperties.readProperty("sql_page"));
-        return new SqlLoginPage();
+        return new SqlLoginPage(driver);
     }
 
     @Step("Enter Login")
     public SqlLoginPage enterLogin() {
         sendKeysToElement(wrapElement(loginField, "Login field"), LOGIN);
-        return new SqlLoginPage();
+        return new SqlLoginPage(driver);
     }
 
     @Step("Enter Login")
     public SqlLoginPage enterPassword() {
         sendKeysToElement(wrapElement(passwordField, "Password field"), PASSWORD);
-        return new SqlLoginPage();
+        return new SqlLoginPage(driver);
     }
 
     @Step("Enter Login")
     public SqlLoginPage clickEnter() {
         clickElement(wrapElement(enterButton, "Submit button"));
-        return new SqlLoginPage();
+        return new SqlLoginPage(driver);
     }
 
     @Step("Click profile link")
     public SqlPersonalPage clickProfileLink() {
         clickElement(wrapElement(profileLink, "Profile link"));
-        return new SqlPersonalPage();
+        return new SqlPersonalPage(driver);
     }
 }

@@ -1,56 +1,53 @@
 package tests;
 
 import helpers.ReadProperties;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import helpers.WebDriverFactory;
 import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import pages.BasePage;
+import org.testng.annotations.BeforeClass;
 
-import java.util.concurrent.TimeUnit;
+import java.net.MalformedURLException;
 
 import static helpers.Screenshoter.makeAScreenshot;
 
 /**
  * The base class for initialization and configuration web driver.
  */
-abstract public class BaseTest {
+public class BaseTest {
 
     /**
      * The driver variable declaration.
      */
-    protected static WebDriver driver;
+    protected WebDriver driver;
+
+    WebDriverFactory factory = new WebDriverFactory();
 
     /**
      * Set base configuration and execute methods before tests.
      */
-    @BeforeTest
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
-        BasePage.setDriver(driver);
+
+
+    @BeforeClass
+    public void setUp() throws MalformedURLException {
+        driver = factory.getDriver();
         ReadProperties.readProperties();
     }
 
     @AfterMethod
-    public void attachScreenshotToAllure(ITestResult result) {
+    public void attachScreenshotToAllure(ITestResult result) throws MalformedURLException {
         if (result.getStatus() == ITestResult.FAILURE) {
-            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(driver));
+            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(new WebDriverFactory().getDriver()));
         }
     }
 
     /**
      * Execute methods after tests.
      */
-    @AfterTest
+    @AfterClass
     public void tearDown() {
-        driver.close();
-        driver.quit();
+        factory.quitDriver();
     }
 }
