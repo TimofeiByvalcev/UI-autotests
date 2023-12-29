@@ -26,6 +26,7 @@ public class WebDriverFactory {
 
     public void quitDriver() {
         if (driver != null) {
+            driver.close();
             driver.quit();
         }
     }
