@@ -71,6 +71,5 @@ public class BaseTest {
             testNG.setThreadCount(1);
             testNG.run();
         }
-
     }
 }
