@@ -22,6 +22,10 @@ import static helpers.Screenshoter.makeAScreenshot;
  * The base class for initialization and configuration web driver.
  */
 public class BaseTest {
+    /**
+     * Boolean flag for failed tests retrying.
+     */
+    private static boolean isAfterSuiteExecuted = false;
 
     /**
      * The driver variable declaration.
@@ -59,11 +63,14 @@ public class BaseTest {
 
     @AfterSuite
     public void runFailedTests() {
-        TestNG testNG = new TestNG();
-        testNG.setTestSuites(Arrays.asList("test-output/testng-failed.xml"));
-        testNG.setPreserveOrder(true);
-        testNG.setThreadCount(1);
-        testNG.run();
-    }
+        if (!isAfterSuiteExecuted) {
+            isAfterSuiteExecuted = true;
+            TestNG testNG = new TestNG();
+            testNG.setTestSuites(Arrays.asList("test-output/testng-failed.xml"));
+            testNG.setPreserveOrder(true);
+            testNG.setThreadCount(1);
+            testNG.run();
+        }
 
+    }
 }
