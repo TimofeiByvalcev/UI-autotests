@@ -41,7 +41,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp(ITestContext context) throws MalformedURLException {
-        driver = factory.getDriver();
+        driver = factory.createDriver("safari", false);
         ReadProperties.readProperties();
         Arrays.stream(context.getAllTestMethods()).forEach(x -> x.setRetryAnalyzerClass(RetryAnalyzer.class));
     }
@@ -49,7 +49,7 @@ public class BaseTest {
     @AfterMethod
     public void attachScreenshotToAllure(ITestResult result) throws MalformedURLException {
         if (result.getStatus() == ITestResult.FAILURE) {
-            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(new WebDriverFactory().getDriver()));
+            Allure.getLifecycle().addAttachment("Screenshot", "image/png", "png", makeAScreenshot(driver));
         }
     }
 
