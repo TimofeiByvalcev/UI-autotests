@@ -3,5 +3,5 @@
 target
 .allure
 src/test/resources/cookies.txt
-
+test-output
 
