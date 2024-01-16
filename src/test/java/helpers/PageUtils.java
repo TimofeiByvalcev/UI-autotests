@@ -28,13 +28,13 @@ public class PageUtils {
     }
 
     @Step("Open Practice Site page")
-    public PracticeSitePage openPracticeSitePage(WebDriver driver) {
+    public static PracticeSitePage openPracticeSitePage(WebDriver driver) {
         driver.get(ReadProperties.readProperty("practice_site1"));
         return new PracticeSitePage(driver);
     }
 
     @Step("Open Sql Personal page")
-    public SqlPersonalPage openPersonalPage(WebDriver driver) {
+    public static SqlPersonalPage openPersonalPage(WebDriver driver) {
         driver.get(ReadProperties.readProperty("sql_personal_page"));
         return new SqlPersonalPage(driver);
     }
