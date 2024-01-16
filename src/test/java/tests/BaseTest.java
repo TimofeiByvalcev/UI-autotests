@@ -41,7 +41,7 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp(ITestContext context) throws MalformedURLException {
-        driver = factory.createDriver("chrome", true);
+        driver = factory.createDriver("chrome", false);
         ReadProperties.readProperties();
         Arrays.stream(context.getAllTestMethods()).forEach(x -> x.setRetryAnalyzerClass(RetryAnalyzer.class));
     }
