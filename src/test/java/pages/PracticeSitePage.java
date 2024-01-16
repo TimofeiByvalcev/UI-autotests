@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.ReadProperties;
+import helpers.WebElementWrapper;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -87,6 +88,9 @@ public class PracticeSitePage extends BasePage {
     @FindBy(xpath = "//div[contains(@class, 'fancybox-overlay')]/descendant::input[@value = 'Submit']")
     private WebElement submitButton;
 
+    @FindBy(xpath = "//a[@href = 'droppable.php']")
+    private WebElement droppablePage;
+
     /**
      * Constructor for getting the driver instance from the BasePage class.
      * And also to initialize WebElements(Page Objects) declared in this class using PageFactory.
@@ -105,7 +109,7 @@ public class PracticeSitePage extends BasePage {
     @Step("Click testing website link")
     public PracticeSitePage clickTestingWebsiteLink() {
         clickElement(wrapElement(testingWebsiteLink, "Testing website link"));
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Get page description")
@@ -117,55 +121,63 @@ public class PracticeSitePage extends BasePage {
     @Step("Enter name in dummy form")
     public PracticeSitePage enterDummyName(String name) {
         sendKeysToElement(wrapElement(dummyFormName, "Name field"), name);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Enter phone in dummy form")
     public PracticeSitePage enterDummyPhone(String phone) {
         sendKeysToElement(wrapElement(dummyFormPhone, "Phone field"), phone);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Enter email in dummy form")
     public PracticeSitePage enterDummyEmail(String email) {
         sendKeysToElement(wrapElement(dummyFormEmail, "Email form"), email);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Select country in dummy form")
     public PracticeSitePage selectDummyCountry(String country) {
         selectByValue(wrapElement(dummyFormCountry, "Country in dropdown"), country);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Enter city in dummy form")
     public PracticeSitePage enterDummyCity(String city) {
         sendKeysToElement(wrapElement(dummyFormCity, "City field"), city);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Enter username in dummy form")
     public PracticeSitePage enterDummyUsername(String username) {
         sendKeysToElement(wrapElement(dummyFormUserName, "Username field"), username);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Enter password in dummy form")
     public PracticeSitePage enterDummyPassword(String password) {
         sendKeysToElement(wrapElement(dummyFormPassword, "Password field"), password);
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Click Submit button dummy form")
     public PracticeSitePage clickSubmitButton() {
         clickElement(wrapElement(submitButton, "Submit form"));
-        return new PracticeSitePage(driver);
+        return this;
     }
 
     @Step("Get alert message in dummy form")
     public WebElement getAlertMessage() {
         waitForElement(wrapElement(alertMessage, "Alert message on the page"));
         return alertMessage;
+    }
+
+    @Step("Open droppable page")
+    public DragNDropPage openDragNDropPage() throws Exception {
+        WebElementWrapper wrappedDroppable = wrapElement(droppablePage, "Droppable page");
+        waitForElement(wrappedDroppable);
+        clickElement(wrappedDroppable);
+        return new DragNDropPage(driver);
     }
 
 

@@ -81,19 +81,19 @@ public class PracticeSite2Page extends BasePage {
     @Step("Enter Username")
     public PracticeSite2Page enterUsername(String username) {
         sendKeysToElement(wrapElement(usernameField, "Username field"), username);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Enter Password")
     public PracticeSite2Page enterPassword(String password) {
         sendKeysToElement(wrapElement(passwordField, "Password field"), password);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Enter Username Description")
     public PracticeSite2Page enterUserNameDescription(String usernameDescription) {
         sendKeysToElement(wrapElement(usernameDescriptionField, "Description field"), usernameDescription);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Click Login button")
@@ -111,7 +111,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedUsername = wrapElement(usernameField, "Username field");
         clickElement(wrappedUsername);
         removeFocus(wrappedUsername);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Enter Password using JS Executor")
@@ -119,7 +119,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedPassword = wrapElement(passwordField, "Password field");
         clickElement(wrappedPassword);
         removeFocus(wrappedPassword);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Enter Username description using JS Executor")
@@ -127,7 +127,7 @@ public class PracticeSite2Page extends BasePage {
         WebElementWrapper wrappedUsernameDescription = wrapElement(usernameDescriptionField, "Username description field");
         clickElement(wrappedUsernameDescription);
         removeFocus(wrappedUsernameDescription);
-        return new PracticeSite2Page(driver);
+        return this;
     }
 
     @Step("Remove focus from {element}")

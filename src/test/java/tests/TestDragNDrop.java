@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.DragNDropPage;
 
+import static helpers.PageUtils.openDragNDropPage;
+
 public class TestDragNDrop extends BaseTest {
 
     @Feature("Drag and Drop")
@@ -17,7 +19,7 @@ public class TestDragNDrop extends BaseTest {
     @Test(testName = "Check drag and drop functionality")
     @Description("In this test we check drag and drop functionality on the page")
     public void testDragNDrop() {
-        DragNDropPage dragNDropPage = new DragNDropPage(driver).openDragNDropPage().dragNDrop();
+        DragNDropPage dragNDropPage = openDragNDropPage(driver).dragNDrop();
         Assert.assertEquals(dragNDropPage.getTextAfterDrop().getText(), dragNDropPage.TEXT_AFTER_DROP);
     }
 }

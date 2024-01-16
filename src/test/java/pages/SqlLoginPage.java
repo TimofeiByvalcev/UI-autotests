@@ -39,19 +39,19 @@ public class SqlLoginPage extends BasePage {
     @Step("Enter Login")
     public SqlLoginPage enterLogin() {
         sendKeysToElement(wrapElement(loginField, "Login field"), LOGIN);
-        return new SqlLoginPage(driver);
+        return this;
     }
 
     @Step("Enter Login")
     public SqlLoginPage enterPassword() {
         sendKeysToElement(wrapElement(passwordField, "Password field"), PASSWORD);
-        return new SqlLoginPage(driver);
+        return this;
     }
 
     @Step("Enter Login")
     public SqlLoginPage clickEnter() {
         clickElement(wrapElement(enterButton, "Submit button"));
-        return new SqlLoginPage(driver);
+        return this;
     }
 
     @Step("Click profile link")
