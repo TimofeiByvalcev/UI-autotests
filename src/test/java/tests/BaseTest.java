@@ -12,6 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import pages.FramesAndWindowsPage;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class BaseTest {
         driver = factory.createDriver("chrome", false);
         ReadProperties.readProperties();
         Arrays.stream(context.getAllTestMethods()).forEach(x -> x.setRetryAnalyzerClass(RetryAnalyzer.class));
+        FramesAndWindowsPage.handleHost = driver.getWindowHandle();
     }
 
     @AfterMethod

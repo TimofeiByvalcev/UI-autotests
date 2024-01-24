@@ -3,6 +3,7 @@ package helpers;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pages.DragNDropPage;
+import pages.FramesAndWindowsPage;
 import pages.HomePage;
 import pages.PracticeSite2Page;
 import pages.PracticeSitePage;
@@ -37,5 +38,11 @@ public class PageUtils {
     public static SqlPersonalPage openPersonalPage(WebDriver driver) {
         driver.get(ReadProperties.readProperty("sql_personal_page"));
         return new SqlPersonalPage(driver);
+    }
+
+    @Step("Open frames and windows page")
+    public static FramesAndWindowsPage openFramesAndWindowsPage(WebDriver driver) {
+        driver.get(ReadProperties.readProperty("frames_n_windows_page"));
+        return new FramesAndWindowsPage(driver);
     }
 }
